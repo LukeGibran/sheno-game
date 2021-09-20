@@ -5,14 +5,11 @@ import Banner from '../components/customs/Banner/Banner';
 
 import {
   Button,
-  Container,
   Flex,
-  Center,
   Box,
   Input,
   FormControl,
   Stack,
-  Heading,
   useColorModeValue,
   Text,
 } from '@chakra-ui/react';
@@ -60,28 +57,49 @@ const HomePage = () => (
           w={'full'}
           paddingX={'1rem'}
         >
-          <Input
-            type={'text'}
-            placeholder={'your name...'}
-            color={useColorModeValue('gray.800', 'gray.200')}
-            bg={useColorModeValue('gray.100', 'gray.600')}
-            rounded={'full'}
-            border={0}
-            _focus={{
-              bg: useColorModeValue('gray.200', 'gray.800'),
-              outline: 'none',
+          <Formik
+            initialValues={{ name: '' }}
+            onSubmit={(values) => {
+              console.log(values);
             }}
-          />
-          <Button
-            bg={'green.600'}
-            rounded={'full'}
-            color={'white'}
-            flex={'1 0 auto'}
-            _hover={{ bg: 'blue.500' }}
-            _focus={{ bg: 'blue.500' }}
           >
-            Enter
-          </Button>
+            {(props) => (
+              <Form>
+                <Field name='name'>
+                  {({ field }) => (
+                    <FormControl>
+                      <Input
+                        type={'text'}
+                        placeholder={'your name...'}
+                        color={useColorModeValue('gray.800', 'gray.200')}
+                        bg={useColorModeValue('gray.100', 'gray.600')}
+                        rounded={'full'}
+                        border={0}
+                        _focus={{
+                          bg: useColorModeValue('gray.200', 'gray.800'),
+                          outline: 'none',
+                        }}
+                        {...field}
+                        mb={3}
+                      />
+                    </FormControl>
+                  )}
+                </Field>
+                <Button
+                  bg={'green.600'}
+                  rounded={'full'}
+                  color={'white'}
+                  flex={'1 0 auto'}
+                  _hover={{ bg: 'green.500' }}
+                  _focus={{ bg: 'green.500' }}
+                  type={'submit'}
+                  width={'full'}
+                >
+                  Enter
+                </Button>
+              </Form>
+            )}
+          </Formik>
         </Stack>
       </Box>
     </Stack>
