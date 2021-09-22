@@ -1,4 +1,14 @@
 export default {
+  components: {
+    Modal: {
+      baseStyle: (props) => ({
+        dialog: {
+          bg: 'yellow.500',
+          padding: '1rem',
+        },
+      }),
+    },
+  },
   fonts: {
     heading: 'Poppins',
     body: 'Poppins',

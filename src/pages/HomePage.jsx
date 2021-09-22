@@ -1,23 +1,28 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
+// Redux Actions
+import { setCurrentPage } from '../redux/question/question.actions';
+
+// Redux Selectors
+import { currentPage, maxPage } from '../redux/question/question.selector';
+
+// Icons
 import { ImHeartBroken, ImHeart } from 'react-icons/im';
+import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 
-import {
-  Button,
-  Flex,
-  Box,
-  Input,
-  FormControl,
-  Stack,
-  useColorModeValue,
-  Text,
-  Icon,
-} from '@chakra-ui/react';
+// Chakra
+import { Flex, Box, Stack, Icon, Text } from '@chakra-ui/react';
 
+// Components
 import CardLevel from '../components/CardLevel/CardLevel';
+import QuestionModal from '../components/Modals/Question/QuestionModal';
 
-const HomePage = ({ history }) => {
+const HomePage = ({ setCurrentPage, page, maxPage }) => {
+  useEffect(() => {
+    console.log(maxPage);
+  }, []);
   return (
     <Flex
       minH={'100vh'}
@@ -99,16 +104,64 @@ const HomePage = ({ history }) => {
             >
               All Levels
             </Text>
+            <Box
+              d={{ base: 'none', lg: 'flex' }}
+              alignItems='center'
+              justifyContent='center'
+              h={20}
+            >
+              <Text
+                fontSize={'1.8rem'}
+                cursor={'pointer'}
+                onClick={() => setCurrentPage(page - 1)}
+                visibility={page !== 1 ? 'visible' : 'hidden'}
+              >
+                <Icon color={'yellow.500'} as={IoIosArrowBack} />
+              </Text>
+              <Text fontSize={'2rem'}>{page}</Text>
+              <Text
+                fontSize={'1.8rem'}
+                cursor={'pointer'}
+                onClick={() => setCurrentPage(page + 1)}
+                visibility={page !== maxPage ? 'visible' : 'hidden'}
+              >
+                <Icon color={'yellow.500'} as={IoIosArrowForward} />
+              </Text>
+            </Box>
           </Stack>
           <Stack
             spacing={4}
             direction={{ base: 'column' }}
             w={'full'}
             h={'full'}
-            justify={{ base: 'flex-start', lg: 'center' }}
+            justify={{ base: 'flex-start', lg: 'flex-start' }}
             alignItems={'center'}
           >
+            <QuestionModal />
             <CardLevel />
+            <Box
+              d={{ base: 'flex', lg: 'none' }}
+              alignItems='center'
+              justifyContent='center'
+            >
+              <Text
+                fontSize={'1.5rem'}
+                cursor={'pointer'}
+                onClick={() => setCurrentPage(page - 1)}
+                visibility={page !== 1 ? 'visible' : 'hidden'}
+              >
+                <Icon color={'yellow.500'} as={IoIosArrowBack} />
+              </Text>
+              <Text fontSize={'1.5rem'}>{page}</Text>
+              <Text fontSize={'1.5rem'}>
+                <Icon
+                  color={'yellow.500'}
+                  as={IoIosArrowForward}
+                  onClick={() => setCurrentPage(page + 1)}
+                  visibility={page !== maxPage ? 'visible' : 'hidden'}
+                />
+              </Text>
+            </Box>
           </Stack>
         </Box>
       </Stack>
@@ -116,4 +169,13 @@ const HomePage = ({ history }) => {
   );
 };
 
-export default HomePage;
+const mapStateToProps = createStructuredSelector({
+  page: currentPage,
+  maxPage: maxPage,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentPage: (page) => dispatch(setCurrentPage(page)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

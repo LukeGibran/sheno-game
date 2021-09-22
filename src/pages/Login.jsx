@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
 
-import Banner from '../components/customs/Banner/Banner';
+import Banner from '../components/Customs/Banner/Banner';
 
 import {
   Button,

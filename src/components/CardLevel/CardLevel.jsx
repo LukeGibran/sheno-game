@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-import { Wrap, WrapItem, Text, Center, Box, Icon } from '@chakra-ui/react';
+// Redux Actions
+import {
+  toggleQuestionModal,
+  setCurrentQuestion,
+} from '../../redux/question/question.actions';
 
-import { GiTrophy } from 'react-icons/gi';
-import { ImSad } from 'react-icons/im';
+// Redux Selectors
+import { allQuestions } from '../../redux/question/question.selector';
 
-const CardLevel = () => {
+import { Wrap, Box, ScaleFade } from '@chakra-ui/react';
+
+import CardLevelItem from './CardLevelItem';
+
+const CardLevel = ({ questions, toggleQModal, setCurrQ }) => {
+  useEffect(() => {
+    console.log(questions);
+  }, []);
+
+  const setTheQuestion = (index) => {
+    toggleQModal()
+    setCurrQ(index)
+  };
   return (
     <Box
       px={{ base: 1, lg: 10 }}
@@ -13,166 +31,31 @@ const CardLevel = () => {
       overflow='hidden'
       justify='center'
       w={{ base: '100%', md: '80%', lg: '70%' }}
+      h={{ base: 225, md: 'auto', lg: 'auto', xl: 'auto' }}
     >
       <Wrap py={3} spacing={{ base: 5, lg: 10 }} justify='center'>
-        <WrapItem>
-          <Center
-            h={{ base: 55, lg: 150 }}
-            w={{ base: 55, lg: 150 }}
-            bg={'yellow.600'}
-            rounded='lg'
-            style={{ boxShadow: '4px 4px 0 #fff', cursor: 'pointer' }}
+        {questions.map((question, i) => (
+          <ScaleFade
+            initialScale={0.9}
+            in={true}
+            key={question.question_no}
+            delay={i / 30}
           >
-            <Text
-              fontSize={{ base: '1.2rem', lg: '2.5rem' }}
-              color={'white'}
-              textShadow='3px 3px #166563'
-            >
-              #1
-            </Text>
-          </Center>
-        </WrapItem>
-        <WrapItem>
-          <Center
-            h={{ base: 55, lg: 150 }}
-            w={{ base: 55, lg: 150 }}
-            bg={'blue.500'}
-            rounded='lg'
-            style={{ boxShadow: '4px 4px 0 #fff', cursor: 'pointer' }}
-          >
-            <Box d='flex' flexDirection='column'>
-              <Text fontSize={{ base: '1.1rem', lg: '2.5rem' }} color={'white'}>
-                <Icon as={GiTrophy} />
-              </Text>
-              <Text fontSize={{ base: '.5rem', lg: '1.2rem' }} color={'white'}>
-                Well done!
-              </Text>
-            </Box>
-          </Center>
-        </WrapItem>
-        <WrapItem>
-          <Center
-            h={{ base: 55, lg: 150 }}
-            w={{ base: 55, lg: 150 }}
-            bg={'red.600'}
-            rounded='lg'
-            style={{ boxShadow: '4px 4px 0 #fff', cursor: 'pointer' }}
-          >
-            <Box d='flex' flexDirection='column'>
-              <Text fontSize={{ base: '1.1rem', lg: '2.5rem' }} color={'white'}>
-                <Icon as={ImSad} />
-              </Text>
-              <Text fontSize={{ base: '.5rem', lg: '1.2rem' }} color={'white'}>
-                Aww Snap!
-              </Text>
-            </Box>
-          </Center>
-        </WrapItem>
-        <WrapItem>
-          <Center
-            h={{ base: 55, lg: 150 }}
-            w={{ base: 55, lg: 150 }}
-            bg={'yellow.600'}
-            rounded='lg'
-            style={{ boxShadow: '4px 4px 0 #fff', cursor: 'pointer' }}
-          >
-            <Text
-              fontSize={{ base: '1.2rem', lg: '2.5rem' }}
-              color={'white'}
-              textShadow='3px 3px #166563'
-            >
-              #1
-            </Text>
-          </Center>
-        </WrapItem>
-        <WrapItem>
-          <Center
-            h={{ base: 55, lg: 150 }}
-            w={{ base: 55, lg: 150 }}
-            bg={'yellow.600'}
-            rounded='lg'
-            style={{ boxShadow: '4px 4px 0 #fff', cursor: 'pointer' }}
-          >
-            <Text
-              fontSize={{ base: '1.2rem', lg: '2.5rem' }}
-              color={'white'}
-              textShadow='3px 3px #166563'
-            >
-              #17
-            </Text>
-          </Center>
-        </WrapItem>
-        <WrapItem>
-          <Center
-            h={{ base: 55, lg: 150 }}
-            w={{ base: 55, lg: 150 }}
-            bg={'yellow.600'}
-            rounded='lg'
-            style={{ boxShadow: '4px 4px 0 #fff', cursor: 'pointer' }}
-          >
-            <Text
-              fontSize={{ base: '1.2rem', lg: '2.5rem' }}
-              color={'white'}
-              textShadow='3px 3px #166563'
-            >
-              #1
-            </Text>
-          </Center>
-        </WrapItem>
-        <WrapItem>
-          <Center
-            h={{ base: 55, lg: 150 }}
-            w={{ base: 55, lg: 150 }}
-            bg={'yellow.600'}
-            rounded='lg'
-            style={{ boxShadow: '4px 4px 0 #fff', cursor: 'pointer' }}
-          >
-            <Text
-              fontSize={{ base: '1.2rem', lg: '2.5rem' }}
-              color={'white'}
-              textShadow='3px 3px #166563'
-            >
-              #1
-            </Text>
-          </Center>
-        </WrapItem>
-        <WrapItem>
-          <Center
-            h={{ base: 55, lg: 150 }}
-            w={{ base: 55, lg: 150 }}
-            bg={'yellow.600'}
-            rounded='lg'
-            style={{ boxShadow: '4px 4px 0 #fff', cursor: 'pointer' }}
-          >
-            <Text
-              fontSize={{ base: '1.2rem', lg: '2.5rem' }}
-              color={'white'}
-              textShadow='3px 3px #166563'
-            >
-              #1
-            </Text>
-          </Center>
-        </WrapItem>
-        <WrapItem>
-          <Center
-            h={{ base: 55, lg: 150 }}
-            w={{ base: 55, lg: 150 }}
-            bg={'yellow.600'}
-            rounded='lg'
-            style={{ boxShadow: '4px 4px 0 #fff', cursor: 'pointer' }}
-          >
-            <Text
-              fontSize={{ base: '1.2rem', lg: '2.5rem' }}
-              color={'white'}
-              textShadow='3px 3px #166563'
-            >
-              #1
-            </Text>
-          </Center>
-        </WrapItem>
+            <CardLevelItem q_no={question.question_no} type={question.status}  setTheQuestion={setTheQuestion} />
+          </ScaleFade>
+        ))}
       </Wrap>
     </Box>
   );
 };
 
-export default CardLevel;
+const mapStateToProps = createStructuredSelector({
+  questions: allQuestions,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  toggleQModal: () => dispatch(toggleQuestionModal()),
+  setCurrQ: (no) => dispatch(setCurrentQuestion(no)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardLevel);
