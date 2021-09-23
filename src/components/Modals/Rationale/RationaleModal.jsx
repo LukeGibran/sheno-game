@@ -3,10 +3,17 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 // Redux Selectors
-import { isRationaleModalOpen } from '../../../redux/question/question.selector';
+import {
+  isRationaleModalOpen,
+  currentQuestion,
+} from '../../../redux/question/question.selector';
 
 // Redux Actions
-import { toggleRationaleModal } from '../../../redux/question/question.actions';
+import {
+  toggleRationaleModal,
+  toggleQuestionModal,
+  setCurrentQuestion,
+} from '../../../redux/question/question.actions';
 
 // Components
 import Banner from '../../Customs/Banner/Banner';
@@ -24,7 +31,13 @@ import {
   Box,
 } from '@chakra-ui/react';
 
-const RationaleModal = ({ isModalOpen, toggleRModal }) => {
+const RationaleModal = ({
+  isModalOpen,
+  toggleRModal,
+  toggleQModal,
+  setCurrentQuestion,
+  currentQuestion,
+}) => {
   const [isNextAvailable, setIsNextAvailable] = useState(false);
   const [timer, setTimer] = useState(0);
 
@@ -48,6 +61,15 @@ const RationaleModal = ({ isModalOpen, toggleRModal }) => {
       setIsNextAvailable(true);
       clearInterval(countdown);
     }, 6000);
+  };
+
+  const setNextQuestion = () => {
+    setCurrentQuestion(currentQuestion + 1);
+    toggleRModal();
+
+    setTimeout(() => {
+      toggleQModal();
+    }, 500);
   };
   return (
     <Modal
@@ -104,7 +126,7 @@ const RationaleModal = ({ isModalOpen, toggleRModal }) => {
             transition='all .3s linear'
             _hover={{ boxShadow: 'none', transform: 'translate(1px, 2px)' }}
             disabled={!isNextAvailable}
-            onClick={() => console.log('heyy')}
+            onClick={() => setNextQuestion()}
           >
             {isNextAvailable ? 'Next' : timer}
           </Button>
@@ -116,10 +138,13 @@ const RationaleModal = ({ isModalOpen, toggleRModal }) => {
 
 const mapStateToProps = createStructuredSelector({
   isModalOpen: isRationaleModalOpen,
+  currentQuestion, 
 });
 
 const mapDispatchToProps = (dispatch) => ({
   toggleRModal: () => dispatch(toggleRationaleModal()),
+  toggleQModal: () => dispatch(toggleQuestionModal()),
+  setCurrentQuestion: (val) => dispatch(setCurrentQuestion(val)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RationaleModal);

@@ -8,7 +8,6 @@ const theme = extendTheme({ ...MyTheme });
 
 import HomePage from './pages/HomePage';
 import Login from './pages/Login';
-import Blog from './pages/Blog';
 
 function App({ Component, pageProps }) {
   return (
@@ -17,7 +16,6 @@ function App({ Component, pageProps }) {
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route exact path='/login' component={Login} />
-          <Route exact path='/blog' component={Blog} />
         </Switch>
       </ChakraProvider>
     </div>

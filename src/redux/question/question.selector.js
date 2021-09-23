@@ -4,6 +4,11 @@ const getAllQuestions = (state) => state.question;
 
 export const allQuestions = createSelector(
   [getAllQuestions],
+  ({ allQuestions }) => allQuestions
+);
+
+export const paginatedQuestions = createSelector(
+  [getAllQuestions],
   ({ allQuestions, page, perPage }) =>
     allQuestions.slice(perPage * (page - 1), perPage * page)
 );
@@ -25,7 +30,7 @@ export const isQuestionModalOpen = createSelector(
 
 export const currentQuestion = createSelector(
   [getAllQuestions],
-  ({ currentQuestion, allQuestions }) => allQuestions[currentQuestion]
+  ({ currentQuestionOpen }) => currentQuestionOpen
 );
 
 export const isRationaleModalOpen = createSelector(

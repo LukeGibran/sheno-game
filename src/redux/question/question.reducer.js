@@ -1,9 +1,10 @@
 import { QuestionActionTypes } from './question.types';
+import { updateQuestionStatus } from './question.utils';
 
 const INITIAL_STATE = {
   page: 1,
   perPage: 9,
-  currentQuestionOpen: null,
+  currentQuestionOpen: 1,
   isQuestionModalOpen: false,
   isRationaleModalOpen: false,
   allQuestions: [
@@ -13,6 +14,7 @@ const INITIAL_STATE = {
       correct_ans: 3,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
       status: 'available',
+      answered: false
     },
     {
       question: 'question goes here',
@@ -20,27 +22,31 @@ const INITIAL_STATE = {
       correct_ans: 2,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
       status: 'unavailable',
+      answered: false
     },
     {
       question: 'question goes here',
       question_no: 3,
       correct_ans: 2,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
-      status: 'correct',
+      status: 'unavailable',
+      answered: false
     },
     {
       question: 'question goes here',
       question_no: 4,
       correct_ans: 2,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
-      status: 'wrong',
+      status: 'unavailable',
+      answered: false
     },
     {
       question: 'question goes here',
       question_no: 5,
       correct_ans: 3,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
-      status: 'available',
+      status: 'unavailable',
+      answered: false
     },
     {
       question: 'question goes here',
@@ -48,6 +54,7 @@ const INITIAL_STATE = {
       correct_ans: 3,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
       status: 'unavailable',
+      answered: false
     },
     {
       question: 'question goes here',
@@ -55,6 +62,7 @@ const INITIAL_STATE = {
       correct_ans: 3,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
       status: 'unavailable',
+      answered: false
     },
     {
       question: 'question goes here',
@@ -62,6 +70,7 @@ const INITIAL_STATE = {
       correct_ans: 3,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
       status: 'unavailable',
+      answered: false
     },
     {
       question: 'question goes here',
@@ -69,6 +78,7 @@ const INITIAL_STATE = {
       correct_ans: 3,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
       status: 'unavailable',
+      answered: false
     },
     {
       question: 'question goes here',
@@ -76,6 +86,7 @@ const INITIAL_STATE = {
       correct_ans: 3,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
       status: 'unavailable',
+      answered: false
     },
     {
       question: 'question goes here',
@@ -83,6 +94,7 @@ const INITIAL_STATE = {
       correct_ans: 3,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
       status: 'unavailable',
+      answered: false
     },
     {
       question: 'question goes here',
@@ -90,6 +102,7 @@ const INITIAL_STATE = {
       correct_ans: 3,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
       status: 'unavailable',
+      answered: false
     },
     {
       question: 'question goes here',
@@ -97,6 +110,7 @@ const INITIAL_STATE = {
       correct_ans: 3,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
       status: 'unavailable',
+      answered: false
     },
     {
       question: 'question goes here',
@@ -104,6 +118,7 @@ const INITIAL_STATE = {
       correct_ans: 3,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
       status: 'unavailable',
+      answered: false
     },
     {
       question: 'question goes here',
@@ -111,6 +126,7 @@ const INITIAL_STATE = {
       correct_ans: 3,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
       status: 'unavailable',
+      answered: false
     },
     {
       question: 'question goes here',
@@ -118,6 +134,7 @@ const INITIAL_STATE = {
       correct_ans: 3,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
       status: 'unavailable',
+      answered: false
     },
     {
       question: 'question goes here',
@@ -125,6 +142,7 @@ const INITIAL_STATE = {
       correct_ans: 3,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
       status: 'unavailable',
+      answered: false
     },
     {
       question: 'question goes here',
@@ -132,6 +150,7 @@ const INITIAL_STATE = {
       correct_ans: 3,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
       status: 'unavailable',
+      answered: false
     },
     {
       question: 'question goes here',
@@ -139,6 +158,7 @@ const INITIAL_STATE = {
       correct_ans: 3,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
       status: 'unavailable',
+      answered: false
     },
     {
       question: 'question goes here',
@@ -146,6 +166,7 @@ const INITIAL_STATE = {
       correct_ans: 3,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
       status: 'unavailable',
+      answered: false
     },
     {
       question: 'question goes here',
@@ -153,6 +174,7 @@ const INITIAL_STATE = {
       correct_ans: 3,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
       status: 'unavailable',
+      answered: false
     },
     {
       question: 'question goes here',
@@ -167,6 +189,7 @@ const INITIAL_STATE = {
       correct_ans: 3,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
       status: 'unavailable',
+      answered: false
     },
     {
       question: 'question goes here',
@@ -174,6 +197,7 @@ const INITIAL_STATE = {
       correct_ans: 3,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
       status: 'unavailable',
+      answered: false
     },
     {
       question: 'question goes here',
@@ -181,6 +205,7 @@ const INITIAL_STATE = {
       correct_ans: 3,
       answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
       status: 'unavailable',
+      answered: false
     },
   ],
 };
@@ -207,6 +232,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         isRationaleModalOpen: !state.isRationaleModalOpen,
       };
+    case QuestionActionTypes.SET_IS_ANSWER_CORRECT: 
+      return {
+        ...state,
+        allQuestions: [...updateQuestionStatus(state.allQuestions, state.currentQuestionOpen, action.payload)],
+      }
     default:
       return state;
   }

@@ -9,7 +9,7 @@ import {
 } from '../../redux/question/question.actions';
 
 // Redux Selectors
-import { allQuestions } from '../../redux/question/question.selector';
+import { paginatedQuestions } from '../../redux/question/question.selector';
 
 import { Wrap, Box, ScaleFade } from '@chakra-ui/react';
 
@@ -50,7 +50,7 @@ const CardLevel = ({ questions, toggleQModal, setCurrQ }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-  questions: allQuestions,
+  questions: paginatedQuestions,
 });
 
 const mapDispatchToProps = (dispatch) => ({

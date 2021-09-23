@@ -17,3 +17,8 @@ export const toggleQuestionModal = () => ({
 export const toggleRationaleModal = () => ({
   type: QuestionActionTypes.TOGGLE_RATIONALE_MODAL,
 });
+
+export const isAnswerCorrect = (val) => ({
+  type: QuestionActionTypes.SET_IS_ANSWER_CORRECT,
+  payload: val,
+});
