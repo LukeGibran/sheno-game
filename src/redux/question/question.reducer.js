@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   perPage: 9,
   currentQuestionOpen: null,
   isQuestionModalOpen: false,
+  isRationaleModalOpen: false,
   allQuestions: [
     {
       question: 'question goes here',
@@ -200,6 +201,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isQuestionModalOpen: !state.isQuestionModalOpen,
+      };
+    case QuestionActionTypes.TOGGLE_RATIONALE_MODAL:
+      return {
+        ...state,
+        isRationaleModalOpen: !state.isRationaleModalOpen,
       };
     default:
       return state;

@@ -27,3 +27,8 @@ export const currentQuestion = createSelector(
   [getAllQuestions],
   ({ currentQuestion, allQuestions }) => allQuestions[currentQuestion]
 );
+
+export const isRationaleModalOpen = createSelector(
+  [getAllQuestions],
+  ({ isRationaleModalOpen }) => isRationaleModalOpen
+);

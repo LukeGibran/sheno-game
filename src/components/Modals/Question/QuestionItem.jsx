@@ -1,8 +1,11 @@
 import React from 'react';
 
-import { ListItem, Text } from '@chakra-ui/react';
+import { ListIcon, ListItem, Text } from '@chakra-ui/react';
 
-const QuestionItem = () => {
+import { GiTrophy } from 'react-icons/gi';
+import { ImSad } from 'react-icons/im';
+
+const QuestionItem = ({ openRationaleModal }) => {
   return (
     <>
       <ListItem
@@ -23,6 +26,7 @@ const QuestionItem = () => {
           transform: 'translate(-3px,-5px )',
           boxShadow: '6px 6px 0 #fff',
         }}
+        onClick={()=> openRationaleModal()}
       >
         <Text
           color={'white'}
@@ -62,17 +66,7 @@ const QuestionItem = () => {
           boxShadow: '6px 6px 0 #fff',
         }}
       >
-        <Text
-          color={'white'}
-          fontSize={{ base: '1rem', lg: '1.2rem' }}
-          textShadow={{
-            base: '2px 2px 0 #74080b',
-            lg: '3px 3px 0 #74080b',
-          }}
-          mr='.5rem'
-        >
-          2
-        </Text>
+        <ListIcon as={ImSad} />
         <Text
           color={'white'}
           textAlign={'start'}
@@ -100,17 +94,7 @@ const QuestionItem = () => {
           boxShadow: '6px 6px 0 #fff',
         }}
       >
-        <Text
-          color={'white'}
-          fontSize={{ base: '1rem', lg: '1.2rem' }}
-          textShadow={{
-            base: '2px 2px 0 #2c5282',
-            lg: '3px 3px 0 #2c5282',
-          }}
-          mr='.5rem'
-        >
-          3
-        </Text>
+        <ListIcon as={GiTrophy} />
         <Text
           color={'white'}
           textAlign={'start'}

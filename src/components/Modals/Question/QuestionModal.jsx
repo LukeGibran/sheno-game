@@ -6,7 +6,10 @@ import { createStructuredSelector } from 'reselect';
 import { isQuestionModalOpen } from '../../../redux/question/question.selector';
 
 // Redux Actions
-import { toggleQuestionModal } from '../../../redux/question/question.actions';
+import {
+  toggleQuestionModal,
+  toggleRationaleModal,
+} from '../../../redux/question/question.actions';
 import {
   Modal,
   ModalOverlay,
@@ -14,16 +17,23 @@ import {
   ModalHeader,
   ModalBody,
   ModalCloseButton,
-  Button,
-  useDisclosure,
   Text,
   List,
 } from '@chakra-ui/react';
 
 import QuestionItem from './QuestionItem';
 
-const QuestionModal = ({ toggleModal, isModalOpen }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+const QuestionModal = ({ toggleModal, toggleRModal, isModalOpen }) => {
+  const openRationaleModal = () => {
+
+    setTimeout(() => {
+      toggleModal();
+    }, 1500);
+
+    setTimeout(() => {
+      toggleRModal();
+    }, 2000);
+  };
 
   return (
     <>
@@ -70,24 +80,9 @@ const QuestionModal = ({ toggleModal, isModalOpen }) => {
               cumque unde quam. Magni?
             </Text>
             <List spacing={3}>
-              <QuestionItem />
+              <QuestionItem openRationaleModal={openRationaleModal} />
             </List>
           </ModalBody>
-          {/* <ModalFooter
-            bg={'yellow.200'}
-            borderBottomEndRadius='2xl'
-            borderBottomStartRadius='2xl'
-          >
-            <Button
-              bg={'green.600'}
-              color='white'
-              boxShadow='4px 4px #fff'
-              transition='all .3s linear'
-              _hover={{ boxShadow: 'none', transform: 'translate(1px, 2px)' }}
-            >
-              Next
-            </Button>
-          </ModalFooter> */}
         </ModalContent>
       </Modal>
     </>
@@ -100,6 +95,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
   toggleModal: () => dispatch(toggleQuestionModal()),
+  toggleRModal: () => dispatch(toggleRationaleModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionModal);

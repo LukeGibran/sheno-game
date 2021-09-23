@@ -13,3 +13,7 @@ export const setCurrentQuestion = (val) => ({
 export const toggleQuestionModal = () => ({
   type: QuestionActionTypes.TOGGLE_QUESTION_MODAL,
 });
+
+export const toggleRationaleModal = () => ({
+  type: QuestionActionTypes.TOGGLE_RATIONALE_MODAL,
+});

@@ -18,6 +18,7 @@ import { Flex, Box, Stack, Icon, Text } from '@chakra-ui/react';
 // Components
 import CardLevel from '../components/CardLevel/CardLevel';
 import QuestionModal from '../components/Modals/Question/QuestionModal';
+import RationaleModal from '../components/Modals/Rationale/RationaleModal';
 
 const HomePage = ({ setCurrentPage, page, maxPage }) => {
   useEffect(() => {
@@ -138,6 +139,7 @@ const HomePage = ({ setCurrentPage, page, maxPage }) => {
             alignItems={'center'}
           >
             <QuestionModal />
+            <RationaleModal />
             <CardLevel />
             <Box
               d={{ base: 'flex', lg: 'none' }}
