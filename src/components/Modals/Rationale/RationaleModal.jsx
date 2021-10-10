@@ -7,6 +7,7 @@ import {
   isRationaleModalOpen,
   currentQuestion,
 } from '../../../redux/question/question.selector';
+import { getCurrentLife } from '../../../redux/user/user.selector';
 
 // Redux Actions
 import {
@@ -37,6 +38,7 @@ const RationaleModal = ({
   toggleQModal,
   setCurrentQuestion,
   currentQuestion,
+  currentLife,
 }) => {
   const [isNextAvailable, setIsNextAvailable] = useState(false);
   const [timer, setTimer] = useState(0);
@@ -71,6 +73,7 @@ const RationaleModal = ({
       toggleQModal();
     }, 500);
   };
+  if (currentLife === 0) return null;
   return (
     <Modal
       isCentered
@@ -84,6 +87,7 @@ const RationaleModal = ({
         <ModalHeader
           bg={'yellow.200'}
           borderTopStartRadius='2xl'
+          borderTopEndRadius='2xl'
           color={'green.700'}
           p={0}
         >
@@ -102,7 +106,10 @@ const RationaleModal = ({
           />
         )}
 
-        <ModalBody bg={'yellow.200'} pb={'1rem'}>
+        <ModalBody
+          bg={'yellow.200'}
+          pb={'1rem'}
+        >
           <Text
             fontSize={{ base: '.9rem', lg: '1rem' }}
             color={'green.700'}
@@ -138,7 +145,8 @@ const RationaleModal = ({
 
 const mapStateToProps = createStructuredSelector({
   isModalOpen: isRationaleModalOpen,
-  currentQuestion, 
+  currentQuestion,
+  currentLife: getCurrentLife,
 });
 
 const mapDispatchToProps = (dispatch) => ({

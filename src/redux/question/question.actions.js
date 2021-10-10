@@ -22,3 +22,7 @@ export const isAnswerCorrect = (val) => ({
   type: QuestionActionTypes.SET_IS_ANSWER_CORRECT,
   payload: val,
 });
+
+export const resetQuestionState = () => ({
+  type: QuestionActionTypes.RESET_QUESTION_STATE
+})

@@ -8,6 +8,7 @@ import {
   currentQuestion,
   allQuestions,
 } from '../../../redux/question/question.selector';
+import { getCurrentLife } from '../../../redux/user/user.selector';
 
 // Redux Actions
 import {
@@ -15,6 +16,9 @@ import {
   toggleRationaleModal,
   isAnswerCorrect,
 } from '../../../redux/question/question.actions';
+import { updateLife, setLostLife } from '../../../redux/user/user.actions';
+
+//  Chakra UI
 import {
   Modal,
   ModalOverlay,
@@ -39,9 +43,16 @@ const QuestionModal = ({
   currentQuestion,
   isAnswerCorrect,
   allQuestions,
+  currentLife,
+  updateLife,
+  setLostLife,
 }) => {
   const openRationaleModal = (val) => {
     isAnswerCorrect(val);
+    if (!val) {
+      updateLife(currentLife - 1);
+      setLostLife();
+    }
 
     setTimeout(() => {
       toggleModal();
@@ -66,7 +77,7 @@ const QuestionModal = ({
         onClose={toggleModal}
         isOpen={isModalOpen}
         motionPreset='slideInBottom'
-        // closeOnOverlayClick={false}
+        closeOnOverlayClick={false}
       >
         <ModalOverlay />
         <ModalContent
@@ -87,6 +98,7 @@ const QuestionModal = ({
                 : 'red.200'
             }
             borderTopStartRadius='2xl'
+            borderTopEndRadius='2xl'
             color={'green.700'}
             p={0}
             textAlign={'center'}
@@ -135,6 +147,8 @@ const QuestionModal = ({
                 ? 'blue.200'
                 : 'red.200'
             }
+            borderBottomStartRadius='2xl'
+            borderBottomEndRadius='2xl'
           >
             <Text
               fontSize={
@@ -171,12 +185,15 @@ const mapStateToProps = createStructuredSelector({
   isModalOpen: isQuestionModalOpen,
   currentQuestion,
   allQuestions,
+  currentLife: getCurrentLife,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   toggleModal: () => dispatch(toggleQuestionModal()),
   toggleRModal: () => dispatch(toggleRationaleModal()),
   isAnswerCorrect: (val) => dispatch(isAnswerCorrect(val)),
+  updateLife: (val) => dispatch(updateLife(val)),
+  setLostLife: () => dispatch(setLostLife()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionModal);
