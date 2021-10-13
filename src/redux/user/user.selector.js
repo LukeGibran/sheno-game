@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import { createSelector } from "reselect";
 
 const userInfo = (state) => state.user;
 
@@ -12,4 +12,11 @@ export const hasLostLife = createSelector(
 export const hasGainLife = createSelector(
   [userInfo],
   ({ hasGainLife }) => hasGainLife
+);
+
+export const isLoading = createSelector([userInfo], ({ loading }) => loading);
+
+export const loadingMessage = createSelector(
+  [userInfo],
+  ({ loadingMessage }) => loadingMessage
 );

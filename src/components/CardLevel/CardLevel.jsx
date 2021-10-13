@@ -39,7 +39,7 @@ const CardLevel = ({ questions, toggleQModal, setCurrQ }) => {
             initialScale={0.9}
             in={true}
             key={question.question_no}
-            delay={i / 30}
+            delay={i / 25}
           >
             <CardLevelItem q_no={question.question_no} type={question.status}  setTheQuestion={setTheQuestion} />
           </ScaleFade>

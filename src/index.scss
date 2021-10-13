@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400&display=swap");
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #171923;
+  background: #171923 !important;
+}
+
+.bg {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+
+  &.bg1 {
+    background-image: url("./assets/bg/bg1.jpg");
+  }
+  &.bg2 {
+    background-image: url("./assets/bg/bg2.jpg");
+  }
+  &.bg3 {
+    background-image: url("./assets/bg/bg3.jpg");
+  }
+  &.bg4 {
+    background-image: url("./assets/bg/bg4.jpg");
+  }
+}

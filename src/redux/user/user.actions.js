@@ -16,3 +16,8 @@ export const setGainLife = () => ({
 export const resetUserState = () => ({
   type: UserActionTypes.RESET_USER_STATE
 })
+
+export const setLoading = (val) => ({
+  type: UserActionTypes.SET_LOADING,
+  payload: val,
+})

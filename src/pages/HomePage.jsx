@@ -1,15 +1,38 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
-import { getCurrentLife } from '../redux/user/user.selector';
+// Redux Selector
+import {
+  getCurrentLife,
+  isLoading,
+  loadingMessage,
+} from "../redux/user/user.selector";
+
+// Redux Action
+import { setCurrentPage, resetQuestionState } from "../redux/question/question.actions";
+import { setLoading, resetUserState } from "../redux/user/user.actions";
+
+import { Box } from "@chakra-ui/react";
 
 // Components
-import Play from './Play';
-import GameOver from '../components/Modals/GameOver/GameOver';
+import Play from "./Play";
+import GameOver from "../components/Modals/GameOver/GameOver";
 
-const HomePage = ({ currentLife }) => {
+// Utils
+import Loader from "../components/utils/Loader";
+
+const HomePage = ({
+  currentLife,
+  setCurrentPage,
+  isLoading,
+  setLoading,
+  loadingMessage,
+  resetQuestionState,
+  resetUserState
+}) => {
   const [isGameOver, setIsGameOver] = useState(false);
+  const [page, setPage] = useState(1);
   useEffect(() => {
     if (currentLife === 0) {
       setTimeout(() => {
@@ -19,18 +42,50 @@ const HomePage = ({ currentLife }) => {
   }, [currentLife]);
 
   const restartGame = () => {
-    console.log('reject');
+    setIsGameOver(false)
+    setLoading('Restarting game..')
+
+    resetQuestionState()
+    resetUserState()
+
+    setTimeout(()=> {
+      setLoading('')
+    }, 2000)
+  };
+
+  const setPageFunc = (val) => {
+    setLoading(val > page ? "Forwaaaaard!" : "Going Back..");
+    setPage(val);
+    setTimeout(() => {
+      setCurrentPage(val);
+      setLoading('');
+    }, 2800);
   };
   return (
-    <>
+    <Box className={`bg bg${page}`} pos="relative">
+      {isLoading && (
+        <Loader
+          message={loadingMessage}
+          forward={loadingMessage === "Forwaaaaard!"}
+        />
+      )}
       <GameOver isModalOpen={isGameOver} restartGame={restartGame} />
-      <Play />
-    </>
+      <Play setPage={setPageFunc} />
+    </Box>
   );
 };
 
 const mapStateToProps = createStructuredSelector({
   currentLife: getCurrentLife,
+  isLoading,
+  loadingMessage,
 });
 
-export default connect(mapStateToProps)(HomePage);
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentPage: (page) => dispatch(setCurrentPage(page)),
+  setLoading: (val) => dispatch(setLoading(val)),
+  resetUserState: () => dispatch(resetUserState()),
+  resetQuestionState: () => dispatch(resetQuestionState())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

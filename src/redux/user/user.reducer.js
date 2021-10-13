@@ -4,6 +4,8 @@ const INITIAL_STATE = {
   lives: 3,
   hasLostLife: false,
   hasGainLife: false,
+  loading: false,
+  loadingMessage: ''
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -34,6 +36,12 @@ const userReducer = (state = INITIAL_STATE, action) => {
         lives: 3,
         hasLostLife: false,
         hasGainLife: false
+      }
+    case UserActionTypes.SET_LOADING:
+      return {
+        ...state,
+        loading: !state.loading,
+        loadingMessage: action.payload
       }
     default:
       return state;

@@ -1,15 +1,15 @@
 import { QuestionActionTypes } from './question.types';
 import { updateQuestionStatus } from './question.utils';
 
-import { questions } from './questions'
+import questions from './questions'
 
 const INITIAL_STATE = {
   page: 1,
-  perPage: 9,
+  perPage: 7,
   currentQuestionOpen: 1,
   isQuestionModalOpen: false,
   isRationaleModalOpen: false,
-  allQuestions: questions
+  allQuestions: JSON.parse(questions)
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -46,7 +46,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
         currentQuestionOpen: 1,
         isQuestionModalOpen: false,
         isRationaleModalOpen: false,
-        allQuestions: [...questions]
+        allQuestions: JSON.parse(questions)
       }
     default:
       return state;
