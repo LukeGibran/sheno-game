@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import { createSelector } from "reselect";
 
 const getAllQuestions = (state) => state.question;
 
@@ -36,4 +36,9 @@ export const currentQuestion = createSelector(
 export const isRationaleModalOpen = createSelector(
   [getAllQuestions],
   ({ isRationaleModalOpen }) => isRationaleModalOpen
+);
+
+export const maxLevel = createSelector(
+  [getAllQuestions],
+  ({ maxLevel }) => maxLevel
 );

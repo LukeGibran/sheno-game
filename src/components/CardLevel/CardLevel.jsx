@@ -1,39 +1,43 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 // Redux Actions
 import {
   toggleQuestionModal,
   setCurrentQuestion,
-} from '../../redux/question/question.actions';
+} from "../../redux/question/question.actions";
 
 // Redux Selectors
-import { paginatedQuestions } from '../../redux/question/question.selector';
+import {
+  paginatedQuestions,
+  maxLevel,
+} from "../../redux/question/question.selector";
 
-import { Wrap, Box, ScaleFade } from '@chakra-ui/react';
+import { Wrap, Box, ScaleFade } from "@chakra-ui/react";
 
-import CardLevelItem from './CardLevelItem';
+import CardLevelItem from "./CardLevelItem";
 
-const CardLevel = ({ questions, toggleQModal, setCurrQ }) => {
+const CardLevel = ({ questions, toggleQModal, setCurrQ, maxLevel }) => {
   useEffect(() => {
     console.log(questions);
   }, []);
 
   const setTheQuestion = (index) => {
-    toggleQModal()
-    setCurrQ(index)
+    if (index > 25) return;
+    toggleQModal();
+    setCurrQ(index);
   };
   return (
     <Box
       px={{ base: 1, lg: 10 }}
       py={{ base: 0, lg: 5 }}
-      overflow='hidden'
-      justify='center'
-      w={{ base: '100%', md: '80%', lg: '70%' }}
-      h={{ base: 225, md: 'auto', lg: 'auto', xl: 'auto' }}
+      overflow="hidden"
+      justify="center"
+      w={{ base: "100%", md: "80%", lg: "70%" }}
+      h={{ base: 225, md: "auto", lg: "auto", xl: "auto" }}
     >
-      <Wrap py={3} spacing={{ base: 5, lg: 10 }} justify='center'>
+      <Wrap py={3} spacing={{ base: 5, lg: 10 }} justify="center">
         {questions.map((question, i) => (
           <ScaleFade
             initialScale={0.9}
@@ -41,7 +45,11 @@ const CardLevel = ({ questions, toggleQModal, setCurrQ }) => {
             key={question.question_no}
             delay={i / 25}
           >
-            <CardLevelItem q_no={question.question_no} type={question.status}  setTheQuestion={setTheQuestion} />
+            <CardLevelItem
+              q_no={question.question_no}
+              type={question.status}
+              setTheQuestion={setTheQuestion}
+            />
           </ScaleFade>
         ))}
       </Wrap>
@@ -51,6 +59,7 @@ const CardLevel = ({ questions, toggleQModal, setCurrQ }) => {
 
 const mapStateToProps = createStructuredSelector({
   questions: paginatedQuestions,
+  maxLevel,
 });
 
 const mapDispatchToProps = (dispatch) => ({

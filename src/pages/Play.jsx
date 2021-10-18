@@ -6,7 +6,11 @@ import { createStructuredSelector } from "reselect";
 import { setLostLife } from "../redux/user/user.actions";
 
 // Redux Selectors
-import { currentPage, maxPage } from "../redux/question/question.selector";
+import {
+  currentPage,
+  currentQuestion,
+  maxPage,
+} from "../redux/question/question.selector";
 import { getCurrentLife, hasLostLife } from "../redux/user/user.selector";
 
 // Icons
@@ -36,7 +40,8 @@ const Play = ({
   currentLife,
   setLostLife,
   hasLostLife,
-  setPage
+  setPage,
+  currentQuestion,
 }) => {
   const toast = useToast();
 
@@ -130,7 +135,7 @@ const Play = ({
               <Text d={{ base: "none", lg: "block" }} color={"white"} mr={1}>
                 Level Completed
               </Text>
-              <Text color={"white"}> 0/25</Text>
+              <Text color={"white"}> {currentQuestion - 1}/25</Text>
             </Box>
           </Stack>
           <Stack
@@ -160,24 +165,26 @@ const Play = ({
                 color={"white"}
                 onClick={() => setPage(page - 1)}
                 disabled={page !== 1 ? false : true}
-                borderRadius={'0'}
-                _hover={{ bg: 'green.500' }}
-                _focus={{ bg: 'green.600' }}
+                borderRadius={"0"}
+                _hover={{ bg: "green.500" }}
+                _focus={{ bg: "green.600" }}
                 cursor={"pointer"}
               >
                 <Icon fontSize={"1.8rem"} color={"white"} as={IoIosArrowBack} />
               </Button>
-              <Box padding={'.12rem 1rem'} bg={'green.600'} >
-                <Text color={'white'} fontSize={"1.5rem"} >{page}</Text>
+              <Box padding={".12rem 1rem"} bg={"green.600"}>
+                <Text color={"white"} fontSize={"1.5rem"}>
+                  {page}
+                </Text>
               </Box>
               <Button
                 bg={"green.600"}
                 color={"white"}
                 cursor={"pointer"}
                 onClick={() => setPage(page + 1)}
-                borderRadius={'0'}
-                _hover={{ bg: 'green.500' }}
-                _focus={{ bg: 'green.600' }}
+                borderRadius={"0"}
+                _hover={{ bg: "green.500" }}
+                _focus={{ bg: "green.600" }}
                 disabled={page !== maxPage ? false : true}
               >
                 <Icon
@@ -203,32 +210,34 @@ const Play = ({
               d={{ base: "flex", lg: "none" }}
               alignItems="center"
               justifyContent="center"
-              pt={'2rem'}
+              pt={"2rem"}
             >
               <Button
                 bg={"green.600"}
                 color={"white"}
                 onClick={() => setPage(page - 1)}
                 disabled={page !== 1 ? false : true}
-                borderRadius={'0'}
+                borderRadius={"0"}
                 cursor={"pointer"}
-                _hover={{ bg: 'green.500' }}
-                _focus={{ bg: 'green.600' }}
+                _hover={{ bg: "green.500" }}
+                _focus={{ bg: "green.600" }}
                 size="sm"
               >
                 <Icon fontSize={"1.2rem"} color={"white"} as={IoIosArrowBack} />
               </Button>
-              <Box padding={'.12rem 1rem'} bg={'green.600'} >
-                <Text color={'white'} fontSize={"1.2rem"} >{page}</Text>
+              <Box padding={".12rem 1rem"} bg={"green.600"}>
+                <Text color={"white"} fontSize={"1.2rem"}>
+                  {page}
+                </Text>
               </Box>
               <Button
                 bg={"green.600"}
                 color={"white"}
                 cursor={"pointer"}
                 onClick={() => setPage(page + 1)}
-                borderRadius={'0'}
-                _hover={{ bg: 'green.500' }}
-                _focus={{ bg: 'green.600' }}
+                borderRadius={"0"}
+                _hover={{ bg: "green.500" }}
+                _focus={{ bg: "green.600" }}
                 disabled={page !== maxPage ? false : true}
                 size="sm"
               >
@@ -251,6 +260,7 @@ const mapStateToProps = createStructuredSelector({
   maxPage: maxPage,
   currentLife: getCurrentLife,
   hasLostLife,
+  currentQuestion,
 });
 
 const mapDispatchToProps = (dispatch) => ({

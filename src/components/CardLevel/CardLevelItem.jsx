@@ -55,7 +55,7 @@ const CardLevelItem = ({ type, q_no, setTheQuestion }) => {
       >
         <Box d='flex' flexDirection='column'>
           <Text fontSize={{ base: '1.1rem', lg: '2.5rem' }} color={'white'}>
-            <Icon as={GiTrophy} />
+            🏅
           </Text>
           <Text fontSize={{ base: '.5rem', lg: '1.2rem' }} color={'white'}>
             Well done!
@@ -75,7 +75,7 @@ const CardLevelItem = ({ type, q_no, setTheQuestion }) => {
       >
         <Box d='flex' flexDirection='column'>
           <Text fontSize={{ base: '1.1rem', lg: '2.5rem' }} color={'white'}>
-            <Icon as={ImSad} />
+            😥
           </Text>
           <Text fontSize={{ base: '.5rem', lg: '1.2rem' }} color={'white'}>
             Aww Snap!

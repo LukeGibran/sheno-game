@@ -1,22 +1,22 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 // Redux Selector
 import {
   isQuestionModalOpen,
   currentQuestion,
   allQuestions,
-} from '../../../redux/question/question.selector';
-import { getCurrentLife } from '../../../redux/user/user.selector';
+} from "../../../redux/question/question.selector";
+import { getCurrentLife } from "../../../redux/user/user.selector";
 
 // Redux Actions
 import {
   toggleQuestionModal,
   toggleRationaleModal,
   isAnswerCorrect,
-} from '../../../redux/question/question.actions';
-import { updateLife, setLostLife } from '../../../redux/user/user.actions';
+} from "../../../redux/question/question.actions";
+import { updateLife, setLostLife } from "../../../redux/user/user.actions";
 
 //  Chakra UI
 import {
@@ -29,12 +29,12 @@ import {
   Text,
   List,
   Icon,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
-import { GiTrophy } from 'react-icons/gi';
-import { ImSad } from 'react-icons/im';
+import { GiTrophy } from "react-icons/gi";
+import { ImSad } from "react-icons/im";
 
-import QuestionItem from './QuestionItem';
+import QuestionItem from "./QuestionItem";
 
 const QuestionModal = ({
   toggleModal,
@@ -47,6 +47,7 @@ const QuestionModal = ({
   updateLife,
   setLostLife,
 }) => {
+  const [hasGameEnded, setHasGameEnded] = useState(false)
   const openRationaleModal = (val) => {
     isAnswerCorrect(val);
     if (!val) {
@@ -63,9 +64,6 @@ const QuestionModal = ({
     }, 3500);
   };
 
-  useEffect(() => {
-    console.log(currentQuestion);
-  }, [currentQuestion]);
 
   const { question, question_no, correct_ans, answers, status, answered } =
     allQuestions[currentQuestion - 1];
@@ -76,94 +74,96 @@ const QuestionModal = ({
         isCentered
         onClose={toggleModal}
         isOpen={isModalOpen}
-        motionPreset='slideInBottom'
+        motionPreset="slideInBottom"
         closeOnOverlayClick={false}
       >
         <ModalOverlay />
         <ModalContent
           bg={
-            status === 'available'
-              ? 'yellow.500'
-              : status === 'correct'
-              ? 'blue.500'
-              : 'red.500'
+            status === "available"
+              ? "yellow.500"
+              : status === "correct"
+              ? "blue.500"
+              : "red.500"
           }
         >
           <ModalHeader
             bg={
-              status === 'available'
-                ? 'yellow.200'
-                : status === 'correct'
-                ? 'blue.200'
-                : 'red.200'
+              status === "available"
+                ? "yellow.200"
+                : status === "correct"
+                ? "blue.200"
+                : "red.200"
             }
-            borderTopStartRadius='2xl'
-            borderTopEndRadius='2xl'
-            color={'green.700'}
+            borderTopStartRadius="2xl"
+            borderTopEndRadius="2xl"
+            color={"green.700"}
             p={0}
-            textAlign={'center'}
+            textAlign={"center"}
           >
-            {status === 'available' ? (
+            {status === "available" ? (
               <Text
-                fontSize={{ base: '1.8rem', lg: '2.5rem' }}
-                color={'white'}
-                textShadow='3px 3px #815a00'
+                fontSize={{ base: "1.8rem", lg: "2.5rem" }}
+                color={"white"}
+                textShadow="3px 3px #815a00"
               >
                 #{question_no}
               </Text>
-            ) : status === 'correct' ? (
-              <Icon
-                as={GiTrophy}
-                fontSize={{ base: '1.8rem', lg: '2.5rem' }}
-                color={'white'}
-                mt={1}
-              />
+            ) : status === "correct" ? (
+              <Text
+                fontSize={{ base: "1.8rem", lg: "2.5rem" }}
+                color={"white"}
+                textShadow="3px 3px #815a00"
+              >
+                🏅
+              </Text>
             ) : (
-              <Icon
-                as={ImSad}
-                fontSize={{ base: '1.8rem', lg: '2.5rem' }}
-                color={'white'}
-                mt={1}
-              />
+              <Text
+                fontSize={{ base: "1.8rem", lg: "2.5rem" }}
+                color={"white"}
+                textShadow="3px 3px #815a00"
+              >
+                😞
+              </Text>
             )}
           </ModalHeader>
-          {status === 'available' && (
+          {status === "available" && (
             <ModalCloseButton
-              bg={'green.600'}
-              color='white'
-              boxShadow='3px 3px #fff'
-              transition='all .3s linear'
-              _hover={{ boxShadow: 'none', transform: 'translate(1px, 2px)' }}
+              bg={"green.600"}
+              color="white"
+              boxShadow="3px 3px #fff"
+              transition="all .3s linear"
+              _hover={{ boxShadow: "none", transform: "translate(1px, 2px)" }}
               onClick={() => toggleModal}
             />
           )}
 
           <ModalBody
-            pb={'1rem'}
+            pb={"1rem"}
             bg={
-              status === 'available'
-                ? 'yellow.200'
-                : status === 'correct'
-                ? 'blue.200'
-                : 'red.200'
+              status === "available"
+                ? "yellow.200"
+                : status === "correct"
+                ? "blue.200"
+                : "red.200"
             }
-            borderBottomStartRadius='2xl'
-            borderBottomEndRadius='2xl'
+            borderBottomStartRadius="2xl"
+            borderBottomEndRadius="2xl"
           >
             <Text
               fontSize={
-                status === 'available'
-                  ? { base: '.8rem', lg: '1rem' }
-                  : { base: '1.5rem' }
+                status === "available"
+                  ? { base: ".8rem", lg: "1rem" }
+                  : { base: "1.5rem" }
               }
-              color={status === 'available' ? 'green.700' : 'white'}
-              mb={{ base: '.5rem', lg: '1rem' }}
+              color={status === "available" ? "green.700" : "white"}
+              mb={{ base: ".5rem", lg: "1rem" }}
             >
-              {status === 'available'
+              {status === "available"
                 ? question
-                : status === 'correct'
-                ? 'Correct!'
-                : 'Aww Snap!'}
+                : status === "correct"
+                ? "Correct!"
+                : "Aww Snap!"}
             </Text>
             <List spacing={3}>
               <QuestionItem

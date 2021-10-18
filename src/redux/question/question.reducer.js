@@ -1,7 +1,8 @@
-import { QuestionActionTypes } from './question.types';
-import { updateQuestionStatus } from './question.utils';
+import { allQuestions, maxLevel } from "./question.selector";
+import { QuestionActionTypes } from "./question.types";
+import { updateQuestionStatus } from "./question.utils";
 
-import questions from './questions'
+import questions from "./questions";
 
 const INITIAL_STATE = {
   page: 1,
@@ -9,7 +10,8 @@ const INITIAL_STATE = {
   currentQuestionOpen: 1,
   isQuestionModalOpen: false,
   isRationaleModalOpen: false,
-  allQuestions: JSON.parse(questions)
+  allQuestions: JSON.parse(questions),
+  maxLevel: JSON.parse(questions).length,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -34,20 +36,26 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         isRationaleModalOpen: !state.isRationaleModalOpen,
       };
-    case QuestionActionTypes.SET_IS_ANSWER_CORRECT: 
+    case QuestionActionTypes.SET_IS_ANSWER_CORRECT:
       return {
         ...state,
-        allQuestions: [...updateQuestionStatus(state.allQuestions, state.currentQuestionOpen, action.payload)],
-      }
-    case QuestionActionTypes.RESET_QUESTION_STATE: 
+        allQuestions: [
+          ...updateQuestionStatus(
+            state.allQuestions,
+            state.currentQuestionOpen,
+            action.payload
+          ),
+        ],
+      };
+    case QuestionActionTypes.RESET_QUESTION_STATE:
       return {
         ...state,
         page: 1,
         currentQuestionOpen: 1,
         isQuestionModalOpen: false,
         isRationaleModalOpen: false,
-        allQuestions: JSON.parse(questions)
-      }
+        allQuestions: JSON.parse(questions),
+      };
     default:
       return state;
   }

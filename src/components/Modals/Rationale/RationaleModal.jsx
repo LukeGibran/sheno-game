@@ -1,23 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 // Redux Selectors
 import {
   isRationaleModalOpen,
   currentQuestion,
-} from '../../../redux/question/question.selector';
-import { getCurrentLife } from '../../../redux/user/user.selector';
+} from "../../../redux/question/question.selector";
+import { getCurrentLife } from "../../../redux/user/user.selector";
 
 // Redux Actions
 import {
   toggleRationaleModal,
   toggleQuestionModal,
   setCurrentQuestion,
-} from '../../../redux/question/question.actions';
+} from "../../../redux/question/question.actions";
 
-// Components
-import Banner from '../../Customs/Banner/Banner';
 
 import {
   Modal,
@@ -30,7 +28,7 @@ import {
   Button,
   Text,
   Box,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
 const RationaleModal = ({
   isModalOpen,
@@ -79,41 +77,42 @@ const RationaleModal = ({
       isCentered
       onClose={toggleRModal}
       isOpen={isModalOpen}
-      motionPreset='slideInRight'
+      motionPreset="slideInRight"
       closeOnOverlayClick={false}
     >
       <ModalOverlay />
-      <ModalContent bg={'yellow.500'}>
+      <ModalContent bg={"yellow.500"}>
         <ModalHeader
-          bg={'yellow.200'}
-          borderTopStartRadius='2xl'
-          borderTopEndRadius='2xl'
-          color={'green.700'}
+          bg={"yellow.200"}
+          borderTopStartRadius="2xl"
+          borderTopEndRadius="2xl"
+          color={"green.700"}
           p={0}
         >
-          <Box my={'1rem'} px={'5rem'}>
-            <Banner message='Rationale' />
-          </Box>
+          <Text
+            fontSize={{ base: "1.8rem", lg: "2.5rem" }}
+            color={"white"}
+            textShadow="3px 3px #815a00"
+          >
+           🧠 
+          </Text>
         </ModalHeader>
         {isNextAvailable && (
           <ModalCloseButton
-            bg={'green.600'}
-            color='white'
-            boxShadow='3px 3px #fff'
-            transition='all .3s linear'
-            _hover={{ boxShadow: 'none', transform: 'translate(1px, 2px)' }}
+            bg={"green.600"}
+            color="white"
+            boxShadow="3px 3px #fff"
+            transition="all .3s linear"
+            _hover={{ boxShadow: "none", transform: "translate(1px, 2px)" }}
             onClick={() => toggleRModal}
           />
         )}
 
-        <ModalBody
-          bg={'yellow.200'}
-          pb={'1rem'}
-        >
+        <ModalBody bg={"yellow.200"} pb={"1rem"}>
           <Text
-            fontSize={{ base: '.9rem', lg: '1rem' }}
-            color={'green.700'}
-            mb={{ base: '.5rem', lg: '1rem' }}
+            fontSize={{ base: ".9rem", lg: "1rem" }}
+            color={"green.700"}
+            mb={{ base: ".5rem", lg: "1rem" }}
           >
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit esse
             odit suscipit magni, eveniet adipisci consequatur corrupti itaque
@@ -122,20 +121,20 @@ const RationaleModal = ({
           </Text>
         </ModalBody>
         <ModalFooter
-          bg={'yellow.200'}
-          borderBottomEndRadius='2xl'
-          borderBottomStartRadius='2xl'
+          bg={"yellow.200"}
+          borderBottomEndRadius="2xl"
+          borderBottomStartRadius="2xl"
         >
           <Button
-            bg={'green.600'}
-            color='white'
-            boxShadow='4px 4px #fff'
-            transition='all .3s linear'
-            _hover={{ boxShadow: 'none', transform: 'translate(1px, 2px)' }}
+            bg={"green.600"}
+            color="white"
+            boxShadow="4px 4px #fff"
+            transition="all .3s linear"
+            _hover={{ boxShadow: "none", transform: "translate(1px, 2px)" }}
             disabled={!isNextAvailable}
             onClick={() => setNextQuestion()}
           >
-            {isNextAvailable ? 'Next' : timer}
+            {isNextAvailable ? "Next" : timer}
           </Button>
         </ModalFooter>
       </ModalContent>
