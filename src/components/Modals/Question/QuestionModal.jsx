@@ -8,7 +8,11 @@ import {
   currentQuestion,
   allQuestions,
 } from "../../../redux/question/question.selector";
-import { getCurrentLife } from "../../../redux/user/user.selector";
+import {
+  getCurrentLife,
+  currentStreak,
+  currentFiveStreak,
+} from "../../../redux/user/user.selector";
 
 // Redux Actions
 import {
@@ -16,7 +20,12 @@ import {
   toggleRationaleModal,
   isAnswerCorrect,
 } from "../../../redux/question/question.actions";
-import { updateLife, setLostLife } from "../../../redux/user/user.actions";
+import {
+  updateLife,
+  setLostLife,
+  setStreak,
+  setFiveStreak,
+} from "../../../redux/user/user.actions";
 
 //  Chakra UI
 import {
@@ -28,11 +37,7 @@ import {
   ModalCloseButton,
   Text,
   List,
-  Icon,
 } from "@chakra-ui/react";
-
-import { GiTrophy } from "react-icons/gi";
-import { ImSad } from "react-icons/im";
 
 import QuestionItem from "./QuestionItem";
 
@@ -46,13 +51,24 @@ const QuestionModal = ({
   currentLife,
   updateLife,
   setLostLife,
+  currentFiveStreak,
+  currentStreak,
+  setFiveStreak,
+  setStreak,
 }) => {
-  const [hasGameEnded, setHasGameEnded] = useState(false)
   const openRationaleModal = (val) => {
     isAnswerCorrect(val);
+
+    if (val) {
+      setFiveStreak(currentFiveStreak + 1)
+      setStreak(currentStreak + 1)
+    }
+
     if (!val) {
       updateLife(currentLife - 1);
       setLostLife();
+      setFiveStreak(0)
+      setStreak(0)
     }
 
     setTimeout(() => {
@@ -63,7 +79,6 @@ const QuestionModal = ({
       toggleRModal();
     }, 3500);
   };
-
 
   const { question, question_no, correct_ans, answers, status, answered } =
     allQuestions[currentQuestion - 1];
@@ -186,6 +201,8 @@ const mapStateToProps = createStructuredSelector({
   currentQuestion,
   allQuestions,
   currentLife: getCurrentLife,
+  currentFiveStreak,
+  currentStreak,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -194,6 +211,8 @@ const mapDispatchToProps = (dispatch) => ({
   isAnswerCorrect: (val) => dispatch(isAnswerCorrect(val)),
   updateLife: (val) => dispatch(updateLife(val)),
   setLostLife: () => dispatch(setLostLife()),
+  setStreak: (val) => dispatch(setStreak(val)),
+  setFiveStreak: (val) => dispatch(setFiveStreak(val)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionModal);

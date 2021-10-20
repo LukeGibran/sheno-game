@@ -1,11 +1,13 @@
-import { UserActionTypes } from './user.types';
+import { UserActionTypes } from "./user.types";
 const INITIAL_STATE = {
   currentUser: null,
   lives: 3,
   hasLostLife: false,
   hasGainLife: false,
   loading: false,
-  loadingMessage: ''
+  loadingMessage: "",
+  streak: 0,
+  fiveStreak: 0,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -35,14 +37,24 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         lives: 3,
         hasLostLife: false,
-        hasGainLife: false
-      }
+        hasGainLife: false,
+      };
     case UserActionTypes.SET_LOADING:
       return {
         ...state,
         loading: !state.loading,
-        loadingMessage: action.payload
-      }
+        loadingMessage: action.payload,
+      };
+    case UserActionTypes.SET_FIVE_STREAK:
+      return {
+        ...state,
+        fiveStreak: action.payload,
+      };
+    case UserActionTypes.SET_STREAK:
+      return {
+        ...state,
+        streak: action.payload,
+      };
     default:
       return state;
   }

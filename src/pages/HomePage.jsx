@@ -76,7 +76,7 @@ const HomePage = ({
     }, 2800);
   };
   return (
-    <Box className={`bg bg${page}`} pos="relative">
+    <Box className={`bg b${page}`} pos="relative">
       {isLoading && (
         <Loader
           message={loadingMessage}

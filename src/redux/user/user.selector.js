@@ -20,3 +20,10 @@ export const loadingMessage = createSelector(
   [userInfo],
   ({ loadingMessage }) => loadingMessage
 );
+
+export const currentStreak = createSelector([userInfo], ({ streak }) => streak);
+
+export const currentFiveStreak = createSelector(
+  [userInfo],
+  ({ fiveStreak }) => fiveStreak
+);

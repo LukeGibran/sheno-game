@@ -1,4 +1,4 @@
-import { UserActionTypes } from './user.types';
+import { UserActionTypes } from "./user.types";
 
 export const updateLife = (val) => ({
   type: UserActionTypes.UPDATE_LIFE,
@@ -14,10 +14,20 @@ export const setGainLife = () => ({
 });
 
 export const resetUserState = () => ({
-  type: UserActionTypes.RESET_USER_STATE
-})
+  type: UserActionTypes.RESET_USER_STATE,
+});
 
 export const setLoading = (val) => ({
   type: UserActionTypes.SET_LOADING,
   payload: val,
-})
+});
+
+export const setStreak = (val) => ({
+  type: UserActionTypes.SET_STREAK,
+  payload: val,
+});
+
+export const setFiveStreak = (val) => ({
+  type: UserActionTypes.SET_FIVE_STREAK,
+  payload: val,
+});

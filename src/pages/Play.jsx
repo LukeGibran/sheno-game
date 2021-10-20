@@ -3,7 +3,12 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
 // Redux Actions
-import { setLostLife } from "../redux/user/user.actions";
+import {
+  setLostLife,
+  setGainLife,
+  updateLife,
+  setFiveStreak,
+} from "../redux/user/user.actions";
 
 // Redux Selectors
 import {
@@ -11,12 +16,17 @@ import {
   currentQuestion,
   maxPage,
 } from "../redux/question/question.selector";
-import { getCurrentLife, hasLostLife } from "../redux/user/user.selector";
+import {
+  getCurrentLife,
+  hasLostLife,
+  hasGainLife,
+  currentStreak,
+  currentFiveStreak,
+} from "../redux/user/user.selector";
 
 // Icons
-import { ImHeartBroken, ImHeart } from "react-icons/im";
+import { ImHeart } from "react-icons/im";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-import { FaExclamationCircle } from "react-icons/fa";
 
 // Chakra
 import {
@@ -34,44 +44,62 @@ import CardLevel from "../components/CardLevel/CardLevel";
 import QuestionModal from "../components/Modals/Question/QuestionModal";
 import RationaleModal from "../components/Modals/Rationale/RationaleModal";
 
+// Utils
+import ToastBox from "../components/utils/ToastBox";
+
 const Play = ({
   page,
   maxPage,
   currentLife,
   setLostLife,
   hasLostLife,
+  hasGainLife,
   setPage,
   currentQuestion,
+  currentFiveStreak,
+  currentStreak,
+  updateLife,
+  setGainLife,
+  setFiveStreak,
 }) => {
   const toast = useToast();
 
   useEffect(() => {
     if (hasLostLife) {
-      LifeToast("You just lost a life! 💔");
+      customToast("You just lost a life! 💔", "red");
       setLostLife();
+    }
+
+    if (hasGainLife) {
+      customToast("You just earned a life! 💓", "blue");
+      setGainLife();
     }
   }, [currentLife]);
 
-  const LifeToast = (title, status) => {
+  useEffect(() => {
+    if (currentFiveStreak === 3) {
+      updateLife(currentLife + 1);
+      setGainLife();
+      setFiveStreak(0);
+    }
+  }, [currentFiveStreak]);
+
+  useEffect(() => {
+    if (currentStreak >= 3) {
+      const arr = ["Way to go!", "Keep the fire burning!", "And another one!", "Sana All!"];
+      customToast(
+        `${arr[Math.floor(Math.random() * arr.length)]} 🔥`,
+        "green"
+      );
+    }
+  }, [currentStreak]);
+
+  const customToast = (title, color) => {
     toast({
       position: "top-right",
       isClosable: true,
-      duration: 3000,
-      render: () => (
-        <Box
-          color="white"
-          p={3}
-          bg="red.200"
-          borderRadius="5px"
-          borderBottom={"5px solid"}
-          borderColor={"red.500"}
-          fontWeight={"bold"}
-          d={"flex"}
-          alignItems={"center"}
-        >
-          <Icon as={FaExclamationCircle} mr={1} /> {title}
-        </Box>
-      ),
+      duration: 4000,
+      render: () => <ToastBox color={color} title={title} />,
     });
   };
   return (
@@ -145,7 +173,36 @@ const Play = ({
             h={20}
             w={"full"}
             justify="center"
+            pos={"relative"}
           >
+            {currentStreak >= 3 && (
+              <Box
+                pos={"absolute"}
+                top={0}
+                left={{ base: -5, lg: 130 }}
+                height={"100%"}
+              >
+                <Text
+                  fontSize={{ base: "2rem", lg: "4rem" }}
+                  fontWeight={"bold"}
+                  color="yellow.400"
+                  fontFamily={"'Cinzel Decorative', cursive"}
+                >
+                  {currentStreak}! 🔥
+                </Text>
+                <Text
+                  float={"left"}
+                  color="red.400"
+                  fontFamily={"'Cinzel Decorative', cursive"}
+                  textShadow="2px 1px 0 #fff"
+                  transform={"rotate(-10deg)"}
+                  marginTop={{ base: "-20px", lg: "-30px" }}
+                  fontSize={{ base: "0.4rem", lg: "1rem" }}
+                >
+                  streak
+                </Text>
+              </Box>
+            )}
             <Text
               fontSize={{ base: "1.5rem", lg: "2.5rem" }}
               fontWeight={"bold"}
@@ -260,11 +317,17 @@ const mapStateToProps = createStructuredSelector({
   maxPage: maxPage,
   currentLife: getCurrentLife,
   hasLostLife,
+  hasGainLife,
   currentQuestion,
+  currentStreak,
+  currentFiveStreak,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setLostLife: () => dispatch(setLostLife()),
+  setGainLife: () => dispatch(setGainLife()),
+  updateLife: (val) => dispatch(updateLife(val)),
+  setFiveStreak: (val) => dispatch(setFiveStreak(val)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Play);
