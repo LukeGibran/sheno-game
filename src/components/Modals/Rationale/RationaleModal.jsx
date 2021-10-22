@@ -6,6 +6,9 @@ import { createStructuredSelector } from "reselect";
 import {
   isRationaleModalOpen,
   currentQuestion,
+  currentAnsPicked,
+  allQuestions,
+  perPage,
 } from "../../../redux/question/question.selector";
 import { getCurrentLife } from "../../../redux/user/user.selector";
 
@@ -15,7 +18,7 @@ import {
   toggleQuestionModal,
   setCurrentQuestion,
 } from "../../../redux/question/question.actions";
-
+import { toggleStageModal } from "../../../redux/user/user.actions";
 
 import {
   Modal,
@@ -27,7 +30,6 @@ import {
   ModalFooter,
   Button,
   Text,
-  Box,
 } from "@chakra-ui/react";
 
 const RationaleModal = ({
@@ -37,6 +39,10 @@ const RationaleModal = ({
   setCurrentQuestion,
   currentQuestion,
   currentLife,
+  currentAnsPicked,
+  allQuestions,
+  toggleStageModal,
+  perPage,
 }) => {
   const [isNextAvailable, setIsNextAvailable] = useState(false);
   const [timer, setTimer] = useState(0);
@@ -64,6 +70,12 @@ const RationaleModal = ({
   };
 
   const setNextQuestion = () => {
+    if (currentQuestion % perPage === 0) {
+      toggleRModal();
+      toggleStageModal();
+      return;
+    }
+
     setCurrentQuestion(currentQuestion + 1);
     toggleRModal();
 
@@ -94,7 +106,7 @@ const RationaleModal = ({
             color={"white"}
             textShadow="3px 3px #815a00"
           >
-           🧠 
+            🧠
           </Text>
         </ModalHeader>
         {isNextAvailable && (
@@ -114,10 +126,7 @@ const RationaleModal = ({
             color={"green.700"}
             mb={{ base: ".5rem", lg: "1rem" }}
           >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit esse
-            odit suscipit magni, eveniet adipisci consequatur corrupti itaque
-            sed, iusto exercitationem vero eligendi beatae ipsa, accusamus
-            cumque unde quam. Magni?
+            {allQuestions[currentQuestion - 1].rationale[currentAnsPicked - 1]}
           </Text>
         </ModalBody>
         <ModalFooter
@@ -146,12 +155,16 @@ const mapStateToProps = createStructuredSelector({
   isModalOpen: isRationaleModalOpen,
   currentQuestion,
   currentLife: getCurrentLife,
+  currentAnsPicked,
+  allQuestions,
+  perPage,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   toggleRModal: () => dispatch(toggleRationaleModal()),
   toggleQModal: () => dispatch(toggleQuestionModal()),
   setCurrentQuestion: (val) => dispatch(setCurrentQuestion(val)),
+  toggleStageModal: () => dispatch(toggleStageModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RationaleModal);

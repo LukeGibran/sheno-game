@@ -43,6 +43,7 @@ import {
 import CardLevel from "../components/CardLevel/CardLevel";
 import QuestionModal from "../components/Modals/Question/QuestionModal";
 import RationaleModal from "../components/Modals/Rationale/RationaleModal";
+import StageModal from "../components/Modals/StageModal/StageModal";
 
 // Utils
 import ToastBox from "../components/utils/ToastBox";
@@ -86,11 +87,13 @@ const Play = ({
 
   useEffect(() => {
     if (currentStreak >= 3) {
-      const arr = ["Way to go!", "Keep the fire burning!", "And another one!", "Sana All!"];
-      customToast(
-        `${arr[Math.floor(Math.random() * arr.length)]} 🔥`,
-        "green"
-      );
+      const arr = [
+        "Way to go! 💯",
+        "Keep the fire burning! 🔥",
+        "And another one! 🤟",
+        "Sana All! 😍",
+      ];
+      customToast(`${arr[Math.floor(Math.random() * arr.length)]}`, "green");
     }
   }, [currentStreak]);
 
@@ -262,6 +265,7 @@ const Play = ({
           >
             <QuestionModal />
             <RationaleModal />
+            <StageModal setPage={() => setPage(page + 1)} />
             <CardLevel />
             <Box
               d={{ base: "flex", lg: "none" }}

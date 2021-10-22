@@ -41,7 +41,7 @@ const HomePage = ({
 }) => {
   const [isGameOver, setIsGameOver] = useState(false);
   const [page, setPage] = useState(1);
-  const [isGameEnded, setIsGameEnded] = useState(false);
+  const [hasGameEnded, setHasGameEnded] = useState(false);
 
   useEffect(() => {
     if (currentLife === 0) {
@@ -52,7 +52,7 @@ const HomePage = ({
   }, [currentLife]);
 
   useEffect(() => {
-    if (currentQuestion > maxLevel) setIsGameEnded(true);
+    if (currentQuestion > maxLevel) setHasGameEnded(true);
   }, [currentQuestion]);
 
   const restartGame = () => {
@@ -86,14 +86,14 @@ const HomePage = ({
 
       <GameOver isModalOpen={isGameOver} restartGame={restartGame} />
 
-      {isGameEnded && (
+      {hasGameEnded && (
         <>
           <Confetti />
-          <GameEnding isModalOpen={isGameEnded} />
+          <GameEnding isModalOpen={hasGameEnded} />
         </>
       )}
 
-      {!isGameEnded && <Play setPage={setPageFunc} />}
+      {!hasGameEnded && <Play setPage={setPageFunc} />}
     </Box>
   );
 };

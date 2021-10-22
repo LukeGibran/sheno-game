@@ -6,7 +6,6 @@ import Banner from '../../Customs/Banner/Banner';
 
 import {
   Modal,
-  ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalBody,
@@ -26,7 +25,6 @@ const GameEnding = ({ isModalOpen, restartGame }) => {
       closeOnOverlayClick={false}
       
     >
-      <ModalOverlay />
       <ModalContent bg={'blue.500'}>
         <ModalHeader
           bg={'blue.500'}

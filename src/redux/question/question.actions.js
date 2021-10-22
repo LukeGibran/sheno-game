@@ -1,4 +1,4 @@
-import { QuestionActionTypes } from './question.types';
+import { QuestionActionTypes } from "./question.types";
 
 export const setCurrentPage = (page) => ({
   type: QuestionActionTypes.SET_CURRENT_PAGE,
@@ -24,5 +24,10 @@ export const isAnswerCorrect = (val) => ({
 });
 
 export const resetQuestionState = () => ({
-  type: QuestionActionTypes.RESET_QUESTION_STATE
-})
+  type: QuestionActionTypes.RESET_QUESTION_STATE,
+});
+
+export const setCurrAnsPicked = (val) => ({
+  type: QuestionActionTypes.SET_CURRENT_ANS_PICKED,
+  payload: val,
+});

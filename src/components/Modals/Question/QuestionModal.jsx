@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
@@ -19,6 +19,7 @@ import {
   toggleQuestionModal,
   toggleRationaleModal,
   isAnswerCorrect,
+  setCurrAnsPicked
 } from "../../../redux/question/question.actions";
 import {
   updateLife,
@@ -55,9 +56,11 @@ const QuestionModal = ({
   currentStreak,
   setFiveStreak,
   setStreak,
+  setCurrAnsPicked,
 }) => {
-  const openRationaleModal = (val) => {
+  const openRationaleModal = (val, ans_picked) => {
     isAnswerCorrect(val);
+    setCurrAnsPicked(ans_picked)
 
     if (val) {
       setFiveStreak(currentFiveStreak + 1)
@@ -213,6 +216,7 @@ const mapDispatchToProps = (dispatch) => ({
   setLostLife: () => dispatch(setLostLife()),
   setStreak: (val) => dispatch(setStreak(val)),
   setFiveStreak: (val) => dispatch(setFiveStreak(val)),
+  setCurrAnsPicked: (val) => dispatch(setCurrAnsPicked(val))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionModal);

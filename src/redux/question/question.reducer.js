@@ -1,4 +1,3 @@
-import { allQuestions, maxLevel } from "./question.selector";
 import { QuestionActionTypes } from "./question.types";
 import { updateQuestionStatus } from "./question.utils";
 
@@ -12,6 +11,7 @@ const INITIAL_STATE = {
   isRationaleModalOpen: false,
   allQuestions: JSON.parse(questions),
   maxLevel: JSON.parse(questions).length,
+  currentAnsPicked: null
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -56,6 +56,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
         isRationaleModalOpen: false,
         allQuestions: JSON.parse(questions),
       };
+    case QuestionActionTypes.SET_CURRENT_ANS_PICKED:
+      return {
+        ...state,
+        currentAnsPicked: action.payload
+      }
     default:
       return state;
   }

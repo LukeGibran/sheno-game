@@ -8,6 +8,7 @@ const INITIAL_STATE = {
   loadingMessage: "",
   streak: 0,
   fiveStreak: 0,
+  stageModal: false,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -55,6 +56,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         streak: action.payload,
       };
+    case UserActionTypes.TOGGLE_STAGE_MODAL:
+      return {
+        ...state,
+        stageModal: !state.stageModal
+      }
     default:
       return state;
   }

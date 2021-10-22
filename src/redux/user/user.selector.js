@@ -27,3 +27,8 @@ export const currentFiveStreak = createSelector(
   [userInfo],
   ({ fiveStreak }) => fiveStreak
 );
+
+export const stageModal = createSelector(
+  [userInfo],
+  ({ stageModal }) => stageModal
+);

@@ -42,3 +42,13 @@ export const maxLevel = createSelector(
   [getAllQuestions],
   ({ maxLevel }) => maxLevel
 );
+
+export const currentAnsPicked = createSelector(
+  [getAllQuestions],
+  ({ currentAnsPicked }) => currentAnsPicked
+);
+
+export const perPage = createSelector(
+  [getAllQuestions],
+  ({ perPage }) => perPage
+);

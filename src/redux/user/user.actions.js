@@ -31,3 +31,7 @@ export const setFiveStreak = (val) => ({
   type: UserActionTypes.SET_FIVE_STREAK,
   payload: val,
 });
+
+export const toggleStageModal = (val) => ({
+  type: UserActionTypes.TOGGLE_STAGE_MODAL,
+});

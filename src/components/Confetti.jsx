@@ -12,7 +12,7 @@ const Confetti = () => {
     return () => confetti.clear();
   }, []);
   return (
-    <Box pos={'absolute'} top={0} left={0} w={100} h={100} zIndex={999}>
+    <Box pos={'absolute'} top={0} left={0} w={100} h={100}>
       <canvas id="my-canvas"></canvas>
     </Box>
   );

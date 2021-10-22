@@ -27,7 +27,7 @@ const GameOver = ({ isModalOpen, restartGame }) => {
       <ModalOverlay />
       <ModalContent bg={"red.500"}>
         <ModalHeader
-          bg={"red.200"}
+          bg={"red.600"}
           borderTopStartRadius="2xl"
           borderTopEndRadius="2xl"
           color={"green.700"}
@@ -45,7 +45,7 @@ const GameOver = ({ isModalOpen, restartGame }) => {
           </Text>
         </ModalHeader>
         <ModalBody
-          bg={"red.200"}
+          bg={"red.600"}
           pb={"1rem"}
           borderBottomStartRadius="2xl"
           borderBottomEndRadius="2xl"

@@ -15,8 +15,8 @@ const QuestionItem = ({
   const checkForCorrectAnswer = (q_number) => {
     if (answered) return;
     q_number === correctAns
-      ? openRationaleModal(true)
-      : openRationaleModal(false);
+      ? openRationaleModal(true, q_number)
+      : openRationaleModal(false, q_number);
   };
 
   const AnswerItem = ({ answer, number }) => (
