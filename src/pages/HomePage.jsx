@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
@@ -24,6 +24,7 @@ import Play from "./Play";
 import GameOver from "../components/Modals/GameOver/GameOver";
 import GameEnding from "../components/Modals/GameEnding/GameEnding";
 import Confetti from "../components/Confetti";
+import Backgrounds from "../components/Backgrounds";
 
 // Utils
 import Loader from "../components/utils/Loader";
@@ -39,6 +40,7 @@ const HomePage = ({
   maxLevel,
   currentQuestion,
 }) => {
+  // States
   const [isGameOver, setIsGameOver] = useState(false);
   const [page, setPage] = useState(1);
   const [hasGameEnded, setHasGameEnded] = useState(false);
@@ -76,7 +78,8 @@ const HomePage = ({
     }, 2800);
   };
   return (
-    <Box className={`bg b${page}`} pos="relative">
+    <Box pos="relative">
+      <Backgrounds page={page} />
       {isLoading && (
         <Loader
           message={loadingMessage}
