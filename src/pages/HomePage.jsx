@@ -19,8 +19,10 @@ import { setLoading, resetUserState } from "../redux/user/user.actions";
 
 import { Box } from "@chakra-ui/react";
 
-// Components
+// Pages
 import Play from "./Play";
+
+// Components
 import GameOver from "../components/Modals/GameOver/GameOver";
 import GameEnding from "../components/Modals/GameEnding/GameEnding";
 import Confetti from "../components/Confetti";

@@ -6,8 +6,10 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import MyTheme from '../theme';
 const theme = extendTheme({ ...MyTheme });
 
+// Pages
 import HomePage from './pages/HomePage';
 import Login from './pages/Login';
+import Scene from './pages/Scene';
 
 function App({ Component, pageProps }) {
   return (
@@ -16,6 +18,7 @@ function App({ Component, pageProps }) {
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route exact path='/login' component={Login} />
+          <Route exact path='/scene' component={Scene}/>
         </Switch>
       </ChakraProvider>
     </div>

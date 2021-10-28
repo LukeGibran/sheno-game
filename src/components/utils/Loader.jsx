@@ -17,7 +17,7 @@ const Loader = ({ message, forward }) => {
       flexDir={"column"}
       justifyContent={"center"}
       alignItems={"center"}
-      zIndex={100}
+      zIndex={9999}
     >
       {/* <img src={pac} alt="loader" style={{ transform: !forward && "scaleX(-1)" }} /> */}
       {forward ? (

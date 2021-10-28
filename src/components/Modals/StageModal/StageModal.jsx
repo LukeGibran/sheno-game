@@ -54,6 +54,8 @@ const StageModal = ({ setPage, stageModal, toggleStageModal }) => {
             fontSize={{ base: "3rem", lg: "5rem" }}
             mb={{ base: ".5rem", lg: "1rem" }}
             d={"flex"}
+            justifyContent={'center'}
+            alignItems={'center'}
           >
             🌟 🌟 🌟
           </Text>
