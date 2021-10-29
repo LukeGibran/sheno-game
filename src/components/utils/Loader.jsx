@@ -1,8 +1,8 @@
 import React from "react";
 import { Box, Text } from "@chakra-ui/react";
-// import pac from "../../assets/images/pac.svg";
-import erwin from '../../assets/images/erwin.gif';
-import retreat from '../../assets/images/retreat.gif'
+import pac from "../../assets/images/pac.svg";
+// import erwin from '../../assets/images/erwin.gif';
+// import retreat from '../../assets/images/retreat.gif'
 
 const Loader = ({ message, forward }) => {
   return (
@@ -12,15 +12,15 @@ const Loader = ({ message, forward }) => {
       pos={"absolute"}
       top={0}
       right={0}
-      bg={"black"}
+      bg={"white"}
       d={"flex"}
       flexDir={"column"}
       justifyContent={"center"}
       alignItems={"center"}
       zIndex={9999}
     >
-      {/* <img src={pac} alt="loader" style={{ transform: !forward && "scaleX(-1)" }} /> */}
-      {forward ? (
+      <img src={pac} alt="loader" style={{ transform: !forward && "scaleX(-1)" }} />
+      {/* {type ? (
         <img
           src={erwin}
           alt="loader"
@@ -32,7 +32,7 @@ const Loader = ({ message, forward }) => {
           alt="loader"
           style={{ transform: "scaleX(-1)" }}
         />
-      )}
+      )} */}
       <Text fontSize={"2rem"} mt={3} fontWeight={"800"} color={"yellow.600"}>
         {message}
       </Text>

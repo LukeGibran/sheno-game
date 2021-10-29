@@ -9,7 +9,7 @@ function Preloader(elements, images) {
       imageObj.src = images[i];
       imageObj.addEventListener("load", iLoad(elements[i], images[i]), false);
     }
-    if (i === images.length) {
+    if (loadedImage === images.length) {
       return res("Success");
     } else {
       return rej("Something went wrong");

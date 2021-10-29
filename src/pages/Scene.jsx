@@ -162,7 +162,7 @@ const Scene = () => {
   };
   return (
     <Hotkeys keyName="enter, space" onKeyDown={updateSceneState}>
-      {isLoading && <Loader message="Loading Scene..." />}
+      {isLoading && <Loader message="Loading Scene..." forward={true} />}
       <SceneEnding isModalOpen={isModalOpen} />
       <div className="SCENES">
         {/* For LG images */}
@@ -203,9 +203,9 @@ const Scene = () => {
           ref={SceneFiveSm}
         />
         <Box
-          width={"50vh"}
+          width={{ base: "230px", md:'300px', lg: "500px" }}
+          height={{ base: "120px", md:'150px', lg: "200px" }}
           bg={"yellow.600"}
-          height={"20vh"}
           borderRadius={"lg"}
           style={{ boxShadow: "3px 3px 0 #fff" }}
           d={"flex"}
@@ -218,7 +218,6 @@ const Scene = () => {
           <div className="caption-wrapper">
             <span ref={el}></span>
           </div>
-          <br />
           <Text
             opacity={0}
             fontSize={".7rem"}
@@ -226,7 +225,8 @@ const Scene = () => {
             className={`cont ${showContinue && "show"}`}
             onClick={updateSceneState}
           >
-            [<span className="lg">press space</span><span className="sm">click here</span> to continue]
+            [<span className="lg">press space</span>
+            <span className="sm">click here</span> to continue]
           </Text>
         </Box>
       </div>
