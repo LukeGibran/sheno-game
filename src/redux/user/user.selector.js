@@ -2,6 +2,16 @@ import { createSelector } from "reselect";
 
 const userInfo = (state) => state.user;
 
+export const getCurrentUser = createSelector(
+  [userInfo],
+  ({ currentUser }) => currentUser
+);
+
+export const isLoggedIn = createSelector(
+  [userInfo],
+  ({ isLoggedIn }) => isLoggedIn
+);
+
 export const getCurrentLife = createSelector([userInfo], ({ lives }) => lives);
 
 export const hasLostLife = createSelector(

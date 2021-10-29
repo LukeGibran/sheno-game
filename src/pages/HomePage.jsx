@@ -98,7 +98,7 @@ const HomePage = ({
         </>
       )}
 
-      {!hasGameEnded && <Play setPage={setPageFunc} />}
+      {!hasGameEnded && !isLoading && <Play setPage={setPageFunc} />}
     </Box>
   );
 };

@@ -1,5 +1,5 @@
-
 import React from 'react';
+import { withRouter } from 'react-router';
 
 // Components
 import Banner from '../../Customs/Banner/Banner';
@@ -16,7 +16,7 @@ import {
 
 import { GiExitDoor } from 'react-icons/gi'
 
-const GameEnding = ({ isModalOpen, restartGame }) => {
+const GameEnding = ({ isModalOpen, history }) => {
   return (
     <Modal
       isCentered
@@ -66,7 +66,7 @@ const GameEnding = ({ isModalOpen, restartGame }) => {
             type={'submit'}
             width={'full'}
             rightIcon={<GiExitDoor />}
-            onClick={() => console.log('End Game')}
+            onClick={() => history.push('/final')}
           >
               Next Stage
           </Button>
@@ -76,4 +76,4 @@ const GameEnding = ({ isModalOpen, restartGame }) => {
   );
 };
 
-export default GameEnding;
+export default withRouter(GameEnding)

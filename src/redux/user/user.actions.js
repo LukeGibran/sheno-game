@@ -1,5 +1,10 @@
 import { UserActionTypes } from "./user.types";
 
+export const setCurrentUser = (val) => ({
+  type: UserActionTypes.SET_CURRENT_USER,
+  payload: val,
+});
+
 export const updateLife = (val) => ({
   type: UserActionTypes.UPDATE_LIFE,
   payload: val,

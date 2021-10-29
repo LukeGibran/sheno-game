@@ -1,6 +1,7 @@
 import { UserActionTypes } from "./user.types";
 const INITIAL_STATE = {
   currentUser: null,
+  isLoggedIn: false,
   lives: 3,
   hasLostLife: false,
   hasGainLife: false,
@@ -17,6 +18,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         currentUser: action.payload,
+        isLoggedIn: true,
       };
     case UserActionTypes.UPDATE_LIFE:
       return {
@@ -59,8 +61,8 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case UserActionTypes.TOGGLE_STAGE_MODAL:
       return {
         ...state,
-        stageModal: !state.stageModal
-      }
+        stageModal: !state.stageModal,
+      };
     default:
       return state;
   }

@@ -13,6 +13,7 @@
     "@emotion/styled": "^11",
     "@fontsource/poppins": "^4.5.0",
     "confetti-js": "^0.0.18",
+    "firebase": "^8.1.1",
     "formik": "^2.2.9",
     "framer-motion": "^4",
     "react": "^17.0.0",

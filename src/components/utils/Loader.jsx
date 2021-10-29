@@ -7,8 +7,8 @@ import pac from "../../assets/images/pac.svg";
 const Loader = ({ message, forward }) => {
   return (
     <Box
-      w={"100%"}
-      h={"100%"}
+      w={"100vw"}
+      h={"100vh"}
       pos={"absolute"}
       top={0}
       right={0}

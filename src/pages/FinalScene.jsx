@@ -24,7 +24,7 @@ const Scene = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [captionNum, setCaptionNum] = useState(0);
   const [captions, setCaptions] = useState([
-    "Na kyaulian na siya! Magsukul kaymu taymanghud!!!",
+    "Congratulations! Ian has now recovered because of your help! 😃",
   ]);
 
   const SceneSix = useRef();

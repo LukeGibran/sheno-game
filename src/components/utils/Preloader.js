@@ -9,14 +9,14 @@ function Preloader(elements, images) {
       imageObj.src = images[i];
       imageObj.addEventListener("load", iLoad(elements[i], images[i]), false);
     }
-    if (loadedImage === images.length) {
+    if (i === images.length) {
       return res("Success");
     } else {
       return rej("Something went wrong");
     }
   });
 
-  return promise
+  return promise;
 }
 
 function iLoad(el, img) {

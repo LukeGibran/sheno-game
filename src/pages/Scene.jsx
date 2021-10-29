@@ -1,5 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 
+import { connect } from "react-redux";
+
+// Redux Action
+import { setLoading } from "../redux/user/user.actions";
+
 import Typed from "typed.js";
 import Hotkeys from "react-hot-keys";
 
@@ -24,7 +29,7 @@ import SCENE5SM from "../assets/bg-mobile/SCENE5.jpg";
 
 import { Box, Text } from "@chakra-ui/react";
 
-const Scene = () => {
+const Scene = ({ history, setLoading }) => {
   const [currentScene, setCurrentScene] = useState(0);
   const [skipScene, setSkipScene] = useState(true);
   const [showContinue, setShowContinue] = useState(false);
@@ -32,12 +37,11 @@ const Scene = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [captionNum, setCaptionNum] = useState(0);
   const [captions, setCaptions] = useState([
-    "This is scene one, the boy is using the phone",
-    "This is scene two, the boy is still using the phone",
-    "This is scene three, the boy is inside the blanket, is he sleeping?",
-    "This is scene four, no! you stupid shit! he's still using his phone!",
-    "This is scene five, the boy has now migraine!",
-    "Help the boy clear his social media addiction! Let's go inside his big dumb head!!!",
+    "This is Ian. He always spends his day scrolling through his social media.",
+    "He spends so much time on social media, he doesn't realize it's already evening.",
+    "This is a new day, and now he's in his blanket, probably sleeping.",
+    "But no, he is still on his phone surfing the social media...",
+    "...and gradually becoming sad, anxious, and a social media addict over time.",
   ]);
 
   const SceneOne = useRef();
@@ -160,10 +164,19 @@ const Scene = () => {
       }, 2000);
     }, 800);
   };
+
+  const goTo = () => {
+    setLoading("Forwaaaaard!");
+    history.push("/");
+
+    setTimeout(() => {
+      setLoading("");
+    }, 3000);
+  };
   return (
     <Hotkeys keyName="enter, space" onKeyDown={updateSceneState}>
       {isLoading && <Loader message="Loading Scene..." forward={true} />}
-      <SceneEnding isModalOpen={isModalOpen} />
+      <SceneEnding goTo={goTo} isModalOpen={isModalOpen} />
       <div className="SCENES">
         {/* For LG images */}
         <img alt="SCENE 1" className="SCENE SCENE-1 SCENE-LG" ref={SceneOne} />
@@ -203,8 +216,8 @@ const Scene = () => {
           ref={SceneFiveSm}
         />
         <Box
-          width={{ base: "230px", md:'300px', lg: "500px" }}
-          height={{ base: "120px", md:'150px', lg: "200px" }}
+          width={{ base: "230px", md: "300px", lg: "500px" }}
+          height={{ base: "100px", md: "150px", lg: "200px" }}
           bg={"yellow.600"}
           borderRadius={"lg"}
           style={{ boxShadow: "3px 3px 0 #fff" }}
@@ -234,4 +247,8 @@ const Scene = () => {
   );
 };
 
-export default Scene;
+const mapDispatchToProps = (dispatch) => ({
+  setLoading: (val) => dispatch(setLoading(val)),
+});
+
+export default connect(null, mapDispatchToProps)(Scene);

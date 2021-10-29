@@ -4,9 +4,14 @@
   min-width: 100vw;
 
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-end;
   padding-bottom: 2rem;
+  padding-left: 10rem;
+  @media (max-width: 768px) {
+    padding-left: 0;
+  justify-content: center;
+  }
   .SCENE {
     position: absolute;
     top: 0;
