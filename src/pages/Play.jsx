@@ -44,6 +44,7 @@ import CardLevel from "../components/CardLevel/CardLevel";
 import QuestionModal from "../components/Modals/Question/QuestionModal";
 import RationaleModal from "../components/Modals/Rationale/RationaleModal";
 import StageModal from "../components/Modals/StageModal/StageModal";
+import StartingModal from "../components/Modals/StartingModal/StartingModal";
 
 // Utils
 import ToastBox from "../components/utils/ToastBox";
@@ -63,6 +64,7 @@ const Play = ({
   setGainLife,
   setFiveStreak,
 }) => {
+  const [welcomeModal, setWelcomeModal] = useState(true);
   const toast = useToast();
 
   useEffect(() => {
@@ -105,6 +107,7 @@ const Play = ({
       render: () => <ToastBox color={color} title={title} />,
     });
   };
+
   return (
     <Flex
       minH={"100vh"}
@@ -166,7 +169,7 @@ const Play = ({
               <Text d={{ base: "none", lg: "block" }} color={"white"} mr={1}>
                 Level Completed
               </Text>
-              <Text color={"white"}> {currentQuestion - 1}/25</Text>
+              <Text color={"white"}> {currentQuestion - 1}/20</Text>
             </Box>
           </Stack>
           <Stack
@@ -266,6 +269,10 @@ const Play = ({
             <QuestionModal />
             <RationaleModal />
             <StageModal setPage={() => setPage(page + 1)} />
+            <StartingModal
+              isModalOpen={welcomeModal}
+              closeWelcomeModal={() => setWelcomeModal(false)}
+            />
             <CardLevel />
             <Box
               d={{ base: "flex", lg: "none" }}

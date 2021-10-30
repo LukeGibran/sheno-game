@@ -9,6 +9,7 @@ import {
   currentAnsPicked,
   allQuestions,
   perPage,
+  maxLevel,
 } from "../../../redux/question/question.selector";
 import { getCurrentLife } from "../../../redux/user/user.selector";
 
@@ -43,6 +44,7 @@ const RationaleModal = ({
   allQuestions,
   toggleStageModal,
   perPage,
+  maxLevel,
 }) => {
   const [isNextAvailable, setIsNextAvailable] = useState(false);
   const [timer, setTimer] = useState(0);
@@ -71,6 +73,11 @@ const RationaleModal = ({
 
   const setNextQuestion = () => {
     if (currentQuestion % perPage === 0) {
+      if (currentQuestion + 1 > maxLevel) {
+        setCurrentQuestion(currentQuestion + 1);
+        toggleRModal();
+        return;
+      }
       toggleRModal();
       toggleStageModal();
       return;
@@ -158,6 +165,7 @@ const mapStateToProps = createStructuredSelector({
   currentAnsPicked,
   allQuestions,
   perPage,
+  maxLevel,
 });
 
 const mapDispatchToProps = (dispatch) => ({

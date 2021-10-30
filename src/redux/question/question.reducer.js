@@ -1,15 +1,15 @@
 import { QuestionActionTypes } from "./question.types";
-import { updateQuestionStatus } from "./question.utils";
+import { updateQuestionStatus, shuffle } from "./question.utils";
 
 import questions from "./questions";
 
 const INITIAL_STATE = {
   page: 1,
-  perPage: 7,
+  perPage: 5,
   currentQuestionOpen: 1,
   isQuestionModalOpen: false,
   isRationaleModalOpen: false,
-  allQuestions: JSON.parse(questions),
+  allQuestions: shuffle(JSON.parse(questions)),
   maxLevel: JSON.parse(questions).length,
   currentAnsPicked: null
 };
@@ -54,7 +54,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
         currentQuestionOpen: 1,
         isQuestionModalOpen: false,
         isRationaleModalOpen: false,
-        allQuestions: JSON.parse(questions),
+        allQuestions: shuffle(JSON.parse(questions)),
       };
     case QuestionActionTypes.SET_CURRENT_ANS_PICKED:
       return {

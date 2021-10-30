@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { ListIcon, ListItem, Text } from "@chakra-ui/react";
 
 import { GiTrophy } from "react-icons/gi";
 import { ImSad } from "react-icons/im";
+
+import SoundLoader from "../../utils/SoundLoader";
 
 const QuestionItem = ({
   openRationaleModal,
@@ -12,11 +14,19 @@ const QuestionItem = ({
   answered,
   status,
 }) => {
+  const [soundEffect, setSoundEffect] = useState(false);
+  const [soundNum, setSoundNum] = useState(null);
   const checkForCorrectAnswer = (q_number) => {
     if (answered) return;
-    q_number === correctAns
-      ? openRationaleModal(true, q_number)
-      : openRationaleModal(false, q_number);
+    if (q_number === correctAns) {
+      openRationaleModal(true, q_number);
+      setSoundEffect(true);
+      setSoundNum(0);
+    } else {
+      openRationaleModal(false, q_number);
+      setSoundEffect(true);
+      setSoundNum(1);
+    }
   };
 
   const AnswerItem = ({ answer, number }) => (
@@ -34,7 +44,7 @@ const QuestionItem = ({
       py={".5rem"}
       pl={{ base: ".8rem", lg: "2.5rem" }}
       pr={"1rem"}
-      rounded={"full"}
+      borderRadius={"xl"}
       boxShadow="3px 3px 0 #fff"
       d={"flex"}
       justifyContent={"start"}
@@ -69,6 +79,7 @@ const QuestionItem = ({
         color={"white"}
         textAlign={"start"}
         fontSize={{ base: ".8rem", lg: "1rem" }}
+        wordBreak={"break-word"}
       >
         {answer}
       </Text>
@@ -77,6 +88,7 @@ const QuestionItem = ({
 
   return (
     <>
+      {soundEffect && <SoundLoader num={soundNum} />}
       {answers.map((answer, index) => (
         <AnswerItem answer={answer} number={index + 1} key={index} />
       ))}

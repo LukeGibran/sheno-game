@@ -222,7 +222,7 @@ const Scene = ({ history, setLoading }) => {
         <Box
           width={{ base: "330px", md: "300px", lg: "500px" }}
           height={{ base: "70px", md: "80px", lg: "150px" }}
-          bg={"yellow.600"}
+          bg={"purple.600"}
           borderRadius={"lg"}
           style={{ boxShadow: "3px 3px 0 #fff" }}
           d={"flex"}
