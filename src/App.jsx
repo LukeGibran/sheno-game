@@ -19,7 +19,7 @@ function App({ Component, pageProps }) {
     <div className="App">
       <ChakraProvider resetCSS={true} theme={theme}>
         <Switch>
-          <Route exact path="/" component={HomePage} />
+          <PrivateRouting exact path="/" component={HomePage} />
           <Route exact path="/login" component={Login} />
           <PrivateRouting exact path="/scene" component={Scene} />
           <PrivateRouting exact path="/final" component={FinalScene} />
