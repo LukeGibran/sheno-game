@@ -30,6 +30,7 @@ import Backgrounds from "../components/Backgrounds";
 
 // Utils
 import Loader from "../components/utils/Loader";
+import MusicLoader from "../components/utils/MusicLoader";
 
 const HomePage = ({
   currentLife,
@@ -81,6 +82,7 @@ const HomePage = ({
   };
   return (
     <Box pos="relative">
+      {!isLoading && <MusicLoader num={1} />}
       <Backgrounds page={page} />
       {isLoading && (
         <Loader

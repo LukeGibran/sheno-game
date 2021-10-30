@@ -8,9 +8,16 @@
   align-items: flex-end;
   padding-bottom: 2rem;
   padding-left: 10rem;
-  @media (max-width: 768px) {
-    padding-left: 0;
-  justify-content: center;
+  @media (max-width: 425px) {
+    padding: 0 1rem;
+    padding-top: 1rem;
+    align-items: flex-start;
+  }
+  @media (max-width: 768px) { 
+    align-items: flex-start;
+    padding: 0;
+    padding-top: 1rem;
+    justify-content: center;
   }
   .SCENE {
     position: absolute;
@@ -45,7 +52,6 @@
       text-align: center;
       color: #fff;
       font-size: 1.4rem;
-      margin-bottom: 16px;
       @media (max-width: 768px) {
         font-size: 0.8rem;
       }
@@ -53,6 +59,7 @@
 
     .cont {
       transition: opacity 0.1s ease;
+      opacity: 0;
       &.show {
         opacity: 1;
       }

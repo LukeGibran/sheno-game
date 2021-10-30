@@ -27,6 +27,9 @@ import SCENE3SM from "../assets/bg-mobile/SCENE3.jpg";
 import SCENE4SM from "../assets/bg-mobile/SCENE4.jpg";
 import SCENE5SM from "../assets/bg-mobile/SCENE5.jpg";
 
+// Utils
+import MusicLoader from "../components/utils/MusicLoader";
+
 import { Box, Text } from "@chakra-ui/react";
 
 const Scene = ({ history, setLoading }) => {
@@ -177,6 +180,7 @@ const Scene = ({ history, setLoading }) => {
     <Hotkeys keyName="enter, space" onKeyDown={updateSceneState}>
       {isLoading && <Loader message="Loading Scene..." forward={true} />}
       <SceneEnding goTo={goTo} isModalOpen={isModalOpen} />
+      {!isLoading && <MusicLoader num={0} />}
       <div className="SCENES">
         {/* For LG images */}
         <img alt="SCENE 1" className="SCENE SCENE-1 SCENE-LG" ref={SceneOne} />
@@ -216,8 +220,8 @@ const Scene = ({ history, setLoading }) => {
           ref={SceneFiveSm}
         />
         <Box
-          width={{ base: "230px", md: "300px", lg: "500px" }}
-          height={{ base: "100px", md: "150px", lg: "200px" }}
+          width={{ base: "330px", md: "300px", lg: "500px" }}
+          height={{ base: "70px", md: "80px", lg: "150px" }}
           bg={"yellow.600"}
           borderRadius={"lg"}
           style={{ boxShadow: "3px 3px 0 #fff" }}
