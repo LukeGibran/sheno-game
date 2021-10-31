@@ -8,6 +8,7 @@ import {
   setGainLife,
   updateLife,
   setFiveStreak,
+  toggeWelcomeModal,
 } from "../redux/user/user.actions";
 
 // Redux Selectors
@@ -22,6 +23,7 @@ import {
   hasGainLife,
   currentStreak,
   currentFiveStreak,
+  welcomeModal,
 } from "../redux/user/user.selector";
 
 // Icons
@@ -63,8 +65,9 @@ const Play = ({
   updateLife,
   setGainLife,
   setFiveStreak,
+  toggeWelcomeModal,
+  welcomeModal,
 }) => {
-  const [welcomeModal, setWelcomeModal] = useState(true);
   const toast = useToast();
 
   useEffect(() => {
@@ -271,7 +274,7 @@ const Play = ({
             <StageModal setPage={() => setPage(page + 1)} />
             <StartingModal
               isModalOpen={welcomeModal}
-              closeWelcomeModal={() => setWelcomeModal(false)}
+              closeWelcomeModal={() => toggeWelcomeModal()}
             />
             <CardLevel />
             <Box
@@ -332,6 +335,7 @@ const mapStateToProps = createStructuredSelector({
   currentQuestion,
   currentStreak,
   currentFiveStreak,
+  welcomeModal,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -339,6 +343,7 @@ const mapDispatchToProps = (dispatch) => ({
   setGainLife: () => dispatch(setGainLife()),
   updateLife: (val) => dispatch(updateLife(val)),
   setFiveStreak: (val) => dispatch(setFiveStreak(val)),
+  toggeWelcomeModal: () => dispatch(toggeWelcomeModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Play);

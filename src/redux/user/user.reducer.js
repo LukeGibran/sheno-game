@@ -10,6 +10,9 @@ const INITIAL_STATE = {
   streak: 0,
   fiveStreak: 0,
   stageModal: false,
+  welcomeModal: true,
+  musicEffect: false,
+  musicNum: 0,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -62,6 +65,21 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         stageModal: !state.stageModal,
+      };
+    case UserActionTypes.TOGGLE_WELCOME_MODAL:
+      return {
+        ...state,
+        welcomeModal: !state.welcomeModal,
+      };
+    case UserActionTypes.TOGGLE_MUSIC_EFFECT:
+      return {
+        ...state,
+        musicEffect: !state.musicEffect,
+      };
+    case UserActionTypes.SET_MUSIC_NUM:
+      return {
+        ...state,
+        musicNum: action.payload,
       };
     default:
       return state;

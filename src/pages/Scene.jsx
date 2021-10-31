@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import { connect } from "react-redux";
+import useSound from "use-sound";
 
 // Redux Action
 import { setLoading } from "../redux/user/user.actions";
@@ -27,10 +28,10 @@ import SCENE3SM from "../assets/bg-mobile/SCENE3.jpg";
 import SCENE4SM from "../assets/bg-mobile/SCENE4.jpg";
 import SCENE5SM from "../assets/bg-mobile/SCENE5.jpg";
 
-// Utils
-import MusicLoader from "../components/utils/MusicLoader";
-
 import { Box, Text } from "@chakra-ui/react";
+
+// Music
+import sceneMusic from "../assets/music/scene-music.mp3";
 
 const Scene = ({ history, setLoading }) => {
   const [currentScene, setCurrentScene] = useState(0);
@@ -47,6 +48,11 @@ const Scene = ({ history, setLoading }) => {
     "...and gradually becoming sad, anxious, and a social media addict over time.",
   ]);
 
+  const [playMusic, { stop }] = useSound(sceneMusic, {
+    loop: true,
+    interrupt: true,
+  });
+
   const SceneOne = useRef();
   const SceneTwo = useRef();
   const SceneThree = useRef();
@@ -62,6 +68,11 @@ const Scene = ({ history, setLoading }) => {
   const el = useRef();
   const typed = useRef(null);
 
+  useEffect(() => {
+    if (!isLoading) {
+      playMusic();
+    }
+  }, [isLoading]);
   useEffect(() => {
     if (!isLoading) {
       const text = captions[captionNum];
@@ -169,6 +180,7 @@ const Scene = ({ history, setLoading }) => {
   };
 
   const goTo = () => {
+    stop()
     setLoading("Forwaaaaard!");
     history.push("/");
 
@@ -180,7 +192,6 @@ const Scene = ({ history, setLoading }) => {
     <Hotkeys keyName="enter, space" onKeyDown={updateSceneState}>
       {isLoading && <Loader message="Loading Scene..." forward={true} />}
       <SceneEnding goTo={goTo} isModalOpen={isModalOpen} />
-      {!isLoading && <MusicLoader num={0} />}
       <div className="SCENES">
         {/* For LG images */}
         <img alt="SCENE 1" className="SCENE SCENE-1 SCENE-LG" ref={SceneOne} />

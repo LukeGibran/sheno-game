@@ -14,7 +14,9 @@ import FinalScene from "./pages/FinalScene";
 
 import PrivateRouting from "./routing/PrivateRouting";
 
-function App({ Component, pageProps }) {
+// Audios
+
+function App() {
   return (
     <div className="App">
       <ChakraProvider resetCSS={true} theme={theme}>

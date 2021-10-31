@@ -3,7 +3,7 @@ import React from "react";
 import sceneMusic from "../../assets/music/scene-music.mp3";
 import inGameMusic from "../../assets/music/in-game.mp3";
 
-class MusicLoader extends React.Component {
+class MusicLoader extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,11 +16,20 @@ class MusicLoader extends React.Component {
   componentDidMount() {
     this.pause();
     this.audioElement.current.src = this.state.music[this.props.num];
-    this.play();
+
+    if (this.props.playMusic) {
+      this.play();
+    }
+  }
+
+  componentDidUpdate() {
+    this.pause()
+    if (this.props.playMusic) {
+      this.play();
+    }
   }
 
   play = () => {
-    this.setState({ play: true, pause: false });
     this.audioElement.current.play();
   };
 
@@ -29,7 +38,7 @@ class MusicLoader extends React.Component {
   };
 
   render() {
-    return <audio src="" ref={this.audioElement} loop />;
+    return <audio src="" ref={this.audioElement} preload="true" loop />;
   }
 }
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import useSound from "use-sound";
 
 // Redux Selector
 import {
@@ -30,7 +31,9 @@ import Backgrounds from "../components/Backgrounds";
 
 // Utils
 import Loader from "../components/utils/Loader";
-import MusicLoader from "../components/utils/MusicLoader";
+
+// Music
+import inGame from "../assets/music/in-game.mp3";
 
 const HomePage = ({
   currentLife,
@@ -47,6 +50,19 @@ const HomePage = ({
   const [isGameOver, setIsGameOver] = useState(false);
   const [page, setPage] = useState(1);
   const [hasGameEnded, setHasGameEnded] = useState(false);
+
+  const [playInGame1, { stop: stopInGame1 }] = useSound(inGame, {
+    loop: true,
+    interrupt: true,
+  });
+
+  useEffect(() => {
+    if (!isLoading) {
+      playInGame1();
+    } else {
+      stopInGame1()
+    }
+  }, [isLoading, page]);
 
   useEffect(() => {
     if (currentLife === 0) {
@@ -82,7 +98,6 @@ const HomePage = ({
   };
   return (
     <Box pos="relative">
-      {!isLoading && <MusicLoader num={1} />}
       <Backgrounds page={page} />
       {isLoading && (
         <Loader

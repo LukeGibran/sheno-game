@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import useSound from "use-sound";
 
 import { ListIcon, ListItem, Text } from "@chakra-ui/react";
 
 import { GiTrophy } from "react-icons/gi";
 import { ImSad } from "react-icons/im";
 
-import SoundLoader from "../../utils/SoundLoader";
+// Audios
+import ding from "../../../assets/music/ding.mp3";
+import wrong from "../../../assets/music/wrong.mp3";
 
 const QuestionItem = ({
   openRationaleModal,
@@ -13,19 +16,18 @@ const QuestionItem = ({
   correctAns,
   answered,
   status,
+  toggleSoundEffect,
 }) => {
-  const [soundEffect, setSoundEffect] = useState(false);
-  const [soundNum, setSoundNum] = useState(null);
+  const [playCorrect] = useSound(ding);
+  const [playWrong] = useSound(wrong);
   const checkForCorrectAnswer = (q_number) => {
     if (answered) return;
     if (q_number === correctAns) {
       openRationaleModal(true, q_number);
-      setSoundEffect(true);
-      setSoundNum(0);
+      playCorrect();
     } else {
+      playWrong();
       openRationaleModal(false, q_number);
-      setSoundEffect(true);
-      setSoundNum(1);
     }
   };
 
@@ -88,7 +90,6 @@ const QuestionItem = ({
 
   return (
     <>
-      {soundEffect && <SoundLoader num={soundNum} />}
       {answers.map((answer, index) => (
         <AnswerItem answer={answer} number={index + 1} key={index} />
       ))}

@@ -37,6 +37,20 @@ export const setFiveStreak = (val) => ({
   payload: val,
 });
 
-export const toggleStageModal = (val) => ({
+export const toggleStageModal = () => ({
   type: UserActionTypes.TOGGLE_STAGE_MODAL,
 });
+
+export const toggeWelcomeModal = () => ({
+  type: UserActionTypes.TOGGLE_WELCOME_MODAL,
+});
+
+
+export const toggleMusicEffect = () => ({
+  type: UserActionTypes.TOGGLE_MUSIC_EFFECT
+})
+
+export const setMusicNum = (val) => ({
+  type: UserActionTypes.SET_MUSIC_NUM,
+  payload: val
+})

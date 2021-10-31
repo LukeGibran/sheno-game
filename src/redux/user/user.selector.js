@@ -42,3 +42,22 @@ export const stageModal = createSelector(
   [userInfo],
   ({ stageModal }) => stageModal
 );
+
+export const welcomeModal = createSelector(
+  [userInfo],
+  ({ welcomeModal }) => welcomeModal
+);
+
+export const soundEffect = createSelector(
+  [userInfo],
+  ({ soundEffect }) => soundEffect
+);
+
+export const soundNum = createSelector([userInfo], ({ soundNum }) => soundNum);
+
+export const musicEffect = createSelector(
+  [userInfo],
+  ({ musicEffect }) => musicEffect
+);
+
+export const musicNum = createSelector([userInfo], ({ musicNum }) => musicNum);
