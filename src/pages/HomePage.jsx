@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import useSound from "use-sound";
 
 // Redux Selector
 import {
@@ -16,7 +15,12 @@ import {
   setCurrentPage,
   resetQuestionState,
 } from "../redux/question/question.actions";
-import { setLoading, resetUserState } from "../redux/user/user.actions";
+import {
+  setLoading,
+  resetUserState,
+  toggleMusicEffect,
+  setMusicNum,
+} from "../redux/user/user.actions";
 
 import { Box } from "@chakra-ui/react";
 
@@ -31,9 +35,7 @@ import Backgrounds from "../components/Backgrounds";
 
 // Utils
 import Loader from "../components/utils/Loader";
-
-// Music
-import inGame from "../assets/music/in-game.mp3";
+import MusicLoader from "../components/utils/MusicLoader";
 
 const HomePage = ({
   currentLife,
@@ -45,24 +47,22 @@ const HomePage = ({
   resetUserState,
   maxLevel,
   currentQuestion,
+  toggleMusicEffect,
+  setMusicNum,
 }) => {
   // States
   const [isGameOver, setIsGameOver] = useState(false);
   const [page, setPage] = useState(1);
   const [hasGameEnded, setHasGameEnded] = useState(false);
 
-  const [playInGame1, { stop: stopInGame1 }] = useSound(inGame, {
-    loop: true,
-    interrupt: true,
-  });
-
   useEffect(() => {
-    if (!isLoading) {
-      playInGame1();
+    if(!isLoading) {
+      setMusicNum(1);
+      toggleMusicEffect(true);
     } else {
-      stopInGame1()
+      toggleMusicEffect(false)
     }
-  }, [isLoading, page]);
+  }, [isLoading]);
 
   useEffect(() => {
     if (currentLife === 0) {
@@ -133,6 +133,8 @@ const mapDispatchToProps = (dispatch) => ({
   setLoading: (val) => dispatch(setLoading(val)),
   resetUserState: () => dispatch(resetUserState()),
   resetQuestionState: () => dispatch(resetQuestionState()),
+  toggleMusicEffect: (val) => dispatch(toggleMusicEffect(val)),
+  setMusicNum: (val) => dispatch(setMusicNum(val)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

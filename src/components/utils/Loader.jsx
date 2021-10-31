@@ -4,7 +4,7 @@ import pac from "../../assets/images/pac.svg";
 // import erwin from '../../assets/images/erwin.gif';
 // import retreat from '../../assets/images/retreat.gif'
 
-const Loader = ({ message, forward }) => {
+const Loader = ({ message, forward, image = true }) => {
   return (
     <Box
       w={"100vw"}
@@ -19,7 +19,7 @@ const Loader = ({ message, forward }) => {
       alignItems={"center"}
       zIndex={9999}
     >
-      <img src={pac} alt="loader" style={{ transform: !forward && "scaleX(-1)" }} />
+      <img preload src={pac} alt="loader" style={{ transform: !forward && "scaleX(-1)", visibility: image ? 'visible' : 'hidden' }} />
       {/* {type ? (
         <img
           src={erwin}

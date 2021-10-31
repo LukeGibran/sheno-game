@@ -26,6 +26,8 @@ import {
   setLostLife,
   setStreak,
   setFiveStreak,
+  toggleSoundEffect,
+  setSoundNum
 } from "../../../redux/user/user.actions";
 
 //  Chakra UI
@@ -57,6 +59,8 @@ const QuestionModal = ({
   setFiveStreak,
   setStreak,
   setCurrAnsPicked,
+  toggleSoundEffect,
+  setSoundNum
 }) => {
   const openRationaleModal = (val, ans_picked) => {
     isAnswerCorrect(val);
@@ -82,6 +86,11 @@ const QuestionModal = ({
       toggleRModal();
     }, 3500);
   };
+
+  const playSoundEffect = (toggle, num) => {
+    setSoundNum(num)
+    toggleSoundEffect(toggle)
+  }
 
   const { question, question_no, correct_ans, answers, status, answered } =
     allQuestions[currentQuestion - 1];
@@ -190,6 +199,7 @@ const QuestionModal = ({
                 correctAns={correct_ans}
                 answered={answered}
                 status={status}
+                playSoundEffect={playSoundEffect}
               />
             </List>
           </ModalBody>
@@ -216,7 +226,9 @@ const mapDispatchToProps = (dispatch) => ({
   setLostLife: () => dispatch(setLostLife()),
   setStreak: (val) => dispatch(setStreak(val)),
   setFiveStreak: (val) => dispatch(setFiveStreak(val)),
-  setCurrAnsPicked: (val) => dispatch(setCurrAnsPicked(val))
+  setCurrAnsPicked: (val) => dispatch(setCurrAnsPicked(val)),
+  toggleSoundEffect: (val) => dispatch(toggleSoundEffect(val)),
+  setSoundNum: (val) => dispatch(setSoundNum(val))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionModal);

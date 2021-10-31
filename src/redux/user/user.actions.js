@@ -46,11 +46,22 @@ export const toggeWelcomeModal = () => ({
 });
 
 
-export const toggleMusicEffect = () => ({
-  type: UserActionTypes.TOGGLE_MUSIC_EFFECT
+export const toggleMusicEffect = (val) => ({
+  type: UserActionTypes.TOGGLE_MUSIC_EFFECT,
+  payload: val
 })
 
 export const setMusicNum = (val) => ({
   type: UserActionTypes.SET_MUSIC_NUM,
+  payload: val
+})
+
+export const toggleSoundEffect = (val) => ({
+  type: UserActionTypes.TOGGLE_SOUND_EFFECT,
+  payload: val
+})
+
+export const setSoundNum = (val) => ({
+  type: UserActionTypes.SET_SOUND_NUM,
   payload: val
 })

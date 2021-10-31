@@ -13,6 +13,8 @@ const INITIAL_STATE = {
   welcomeModal: true,
   musicEffect: false,
   musicNum: 0,
+  soundEffect: false,
+  soundNum: 0,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -74,12 +76,22 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case UserActionTypes.TOGGLE_MUSIC_EFFECT:
       return {
         ...state,
-        musicEffect: !state.musicEffect,
+        musicEffect: action.payload,
       };
     case UserActionTypes.SET_MUSIC_NUM:
       return {
         ...state,
         musicNum: action.payload,
+      };
+    case UserActionTypes.TOGGLE_SOUND_EFFECT:
+      return {
+        ...state,
+        soundEffect: action.payload,
+      };
+    case UserActionTypes.SET_SOUND_NUM:
+      return {
+        ...state,
+        soundNum: action.payload,
       };
     default:
       return state;

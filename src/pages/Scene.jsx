@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import { connect } from "react-redux";
-import useSound from "use-sound";
 
 // Redux Action
-import { setLoading } from "../redux/user/user.actions";
+import { setLoading, toggleMusicEffect, setMusicNum } from "../redux/user/user.actions";
 
 import Typed from "typed.js";
 import Hotkeys from "react-hot-keys";
@@ -30,10 +29,7 @@ import SCENE5SM from "../assets/bg-mobile/SCENE5.jpg";
 
 import { Box, Text } from "@chakra-ui/react";
 
-// Music
-import sceneMusic from "../assets/music/scene-music.mp3";
-
-const Scene = ({ history, setLoading }) => {
+const Scene = ({ history, setLoading, setMusicNum, toggleMusicEffect }) => {
   const [currentScene, setCurrentScene] = useState(0);
   const [skipScene, setSkipScene] = useState(true);
   const [showContinue, setShowContinue] = useState(false);
@@ -47,11 +43,6 @@ const Scene = ({ history, setLoading }) => {
     "But no, he is still on his phone surfing the social media...",
     "...and gradually becoming sad, anxious, and a social media addict over time.",
   ]);
-
-  const [playMusic, { stop }] = useSound(sceneMusic, {
-    loop: true,
-    interrupt: true,
-  });
 
   const SceneOne = useRef();
   const SceneTwo = useRef();
@@ -68,11 +59,6 @@ const Scene = ({ history, setLoading }) => {
   const el = useRef();
   const typed = useRef(null);
 
-  useEffect(() => {
-    if (!isLoading) {
-      playMusic();
-    }
-  }, [isLoading]);
   useEffect(() => {
     if (!isLoading) {
       const text = captions[captionNum];
@@ -127,6 +113,8 @@ const Scene = ({ history, setLoading }) => {
       setTimeout(() => {
         setIsLoading(false);
         startScene(SceneOne.current, SceneOneSm.current);
+        setMusicNum(0)
+        toggleMusicEffect(true)
       }, 3000);
     });
   }, []);
@@ -180,8 +168,8 @@ const Scene = ({ history, setLoading }) => {
   };
 
   const goTo = () => {
-    stop()
     setLoading("Forwaaaaard!");
+    toggleMusicEffect(false)
     history.push("/");
 
     setTimeout(() => {
@@ -264,6 +252,9 @@ const Scene = ({ history, setLoading }) => {
 
 const mapDispatchToProps = (dispatch) => ({
   setLoading: (val) => dispatch(setLoading(val)),
+  setMusicNum: (val) => dispatch(setMusicNum(val)),
+  toggleMusicEffect: (val) => dispatch(toggleMusicEffect(val))
 });
+
 
 export default connect(null, mapDispatchToProps)(Scene);

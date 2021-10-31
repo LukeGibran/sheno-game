@@ -19,7 +19,7 @@ import {
   toggleQuestionModal,
   setCurrentQuestion,
 } from "../../../redux/question/question.actions";
-import { toggleStageModal } from "../../../redux/user/user.actions";
+import { toggleStageModal, toggleSoundEffect } from "../../../redux/user/user.actions";
 
 import {
   Modal,
@@ -45,12 +45,14 @@ const RationaleModal = ({
   toggleStageModal,
   perPage,
   maxLevel,
+  toggleSoundEffect
 }) => {
   const [isNextAvailable, setIsNextAvailable] = useState(false);
   const [timer, setTimer] = useState(0);
 
   useEffect(() => {
     if (isModalOpen) {
+      toggleSoundEffect(false)
       setIsNextAvailable(false);
       setTimer(5);
       setCountDown();
@@ -173,6 +175,7 @@ const mapDispatchToProps = (dispatch) => ({
   toggleQModal: () => dispatch(toggleQuestionModal()),
   setCurrentQuestion: (val) => dispatch(setCurrentQuestion(val)),
   toggleStageModal: () => dispatch(toggleStageModal()),
+  toggleSoundEffect: (val) => dispatch(toggleSoundEffect(val))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RationaleModal);

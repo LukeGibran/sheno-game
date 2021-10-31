@@ -1,21 +1,22 @@
 import React from "react";
 
+// Sound Effects
 import sceneMusic from "../../assets/music/scene-music.mp3";
-import inGameMusic from "../../assets/music/in-game.mp3";
+import inGame1 from "../../assets/music/in-game.mp3";
 
-class MusicLoader extends React.PureComponent {
+class SoundLoader extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      music: [sceneMusic, inGameMusic],
-    };
 
-    this.audioElement = React.createRef();
+    this.sceneMusicRef = React.createRef();
+    this.inGame1Ref = React.createRef();
+
+    this.musicRef = [this.sceneMusicRef, this.inGame1Ref];
   }
 
   componentDidMount() {
+    if (!this.props.num) return;
     this.pause();
-    this.audioElement.current.src = this.state.music[this.props.num];
 
     if (this.props.playMusic) {
       this.play();
@@ -23,23 +24,28 @@ class MusicLoader extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    this.pause()
+    this.pause();
     if (this.props.playMusic) {
       this.play();
     }
   }
 
   play = () => {
-    this.audioElement.current.play();
+    this.musicRef[this.props.num].current.play();
   };
 
   pause = () => {
-    this.audioElement.current.pause();
+    this.musicRef[this.props.num].current.pause();
   };
 
   render() {
-    return <audio src="" ref={this.audioElement} preload="true" loop />;
+    return (
+      <>
+        <audio src={sceneMusic} ref={this.sceneMusicRef} preload="true" loop />
+        <audio src={inGame1} ref={this.inGame1Ref} preload="true" loop />
+      </>
+    );
   }
 }
 
-export default MusicLoader;
+export default SoundLoader;

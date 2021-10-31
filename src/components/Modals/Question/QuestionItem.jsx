@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import useSound from "use-sound";
 
 import { ListIcon, ListItem, Text } from "@chakra-ui/react";
 
@@ -16,18 +15,16 @@ const QuestionItem = ({
   correctAns,
   answered,
   status,
-  toggleSoundEffect,
+  playSoundEffect
 }) => {
-  const [playCorrect] = useSound(ding);
-  const [playWrong] = useSound(wrong);
   const checkForCorrectAnswer = (q_number) => {
     if (answered) return;
     if (q_number === correctAns) {
       openRationaleModal(true, q_number);
-      playCorrect();
+      playSoundEffect(true, 0)
     } else {
-      playWrong();
       openRationaleModal(false, q_number);
+      playSoundEffect(true, 1)
     }
   };
 
