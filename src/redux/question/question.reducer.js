@@ -11,6 +11,7 @@ const INITIAL_STATE = {
   isRationaleModalOpen: false,
   allQuestions: shuffle(JSON.parse(questions)),
   maxLevel: JSON.parse(questions).length,
+  // maxLevel: 3,
   currentAnsPicked: null
 };
 

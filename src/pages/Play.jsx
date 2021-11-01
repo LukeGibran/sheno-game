@@ -9,6 +9,8 @@ import {
   updateLife,
   setFiveStreak,
   toggeWelcomeModal,
+  setSoundNum,
+  toggleSoundEffect,
 } from "../redux/user/user.actions";
 
 // Redux Selectors
@@ -67,6 +69,8 @@ const Play = ({
   setFiveStreak,
   toggeWelcomeModal,
   welcomeModal,
+  setSoundNum,
+  toggleSoundEffect,
 }) => {
   const toast = useToast();
 
@@ -79,6 +83,8 @@ const Play = ({
     if (hasGainLife) {
       customToast("You just earned a life! 💓", "blue");
       setGainLife();
+      setSoundNum(2);
+      toggleSoundEffect(true);
     }
   }, [currentLife]);
 
@@ -344,6 +350,8 @@ const mapDispatchToProps = (dispatch) => ({
   updateLife: (val) => dispatch(updateLife(val)),
   setFiveStreak: (val) => dispatch(setFiveStreak(val)),
   toggeWelcomeModal: () => dispatch(toggeWelcomeModal()),
+  setSoundNum: (val) => dispatch(setSoundNum(val)),
+  toggleSoundEffect: (val) => dispatch(toggleSoundEffect(val)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Play);

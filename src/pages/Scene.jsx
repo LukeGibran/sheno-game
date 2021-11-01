@@ -1,9 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 
+import ReactHowler from "react-howler";
+
 import { connect } from "react-redux";
 
 // Redux Action
-import { setLoading, toggleMusicEffect, setMusicNum } from "../redux/user/user.actions";
+import {
+  setLoading,
+  toggleMusicEffect,
+  setMusicNum,
+} from "../redux/user/user.actions";
 
 import Typed from "typed.js";
 import Hotkeys from "react-hot-keys";
@@ -12,6 +18,9 @@ import Preloader from "../components/utils/Preloader";
 import Loader from "../components/utils/Loader";
 
 import SceneEnding from "../components/Modals/SceneEnding/SceneEnding";
+
+// Music
+import sceneMusic from "../assets/music/scene-music.mp3";
 
 // Images - LG
 import SCENE1 from "../assets/bg/SCENE1.jpg";
@@ -27,13 +36,23 @@ import SCENE3SM from "../assets/bg-mobile/SCENE3.jpg";
 import SCENE4SM from "../assets/bg-mobile/SCENE4.jpg";
 import SCENE5SM from "../assets/bg-mobile/SCENE5.jpg";
 
+// Replaceable Images
+import SCENE1R from '../assets/bg-mobile/SCENE1.png'
+
 import { Box, Text } from "@chakra-ui/react";
 
-const Scene = ({ history, setLoading, setMusicNum, toggleMusicEffect }) => {
+const Scene = ({
+  history,
+  setGlobalLoading,
+  setMusicNum,
+  toggleMusicEffect,
+}) => {
   const [currentScene, setCurrentScene] = useState(0);
   const [skipScene, setSkipScene] = useState(true);
   const [showContinue, setShowContinue] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isImgLoading, setIsImgLoading] = useState(true);
+  const [isMusicLoading, setMusicLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [captionNum, setCaptionNum] = useState(0);
   const [captions, setCaptions] = useState([
@@ -58,6 +77,15 @@ const Scene = ({ history, setLoading, setMusicNum, toggleMusicEffect }) => {
 
   const el = useRef();
   const typed = useRef(null);
+
+  const sceneMusicRef = useRef();
+
+  useEffect(() => {
+    if (!isMusicLoading && !isImgLoading) {
+      setIsLoading(false);
+      startScene(SceneOne.current, SceneOneSm.current);
+    }
+  }, [isImgLoading, isMusicLoading]);
 
   useEffect(() => {
     if (!isLoading) {
@@ -111,10 +139,9 @@ const Scene = ({ history, setLoading, setMusicNum, toggleMusicEffect }) => {
       ]
     ).then(() => {
       setTimeout(() => {
-        setIsLoading(false);
-        startScene(SceneOne.current, SceneOneSm.current);
-        setMusicNum(0)
-        toggleMusicEffect(true)
+        setIsImgLoading(false);
+        // setMusicNum(0)
+        // toggleMusicEffect(true)
       }, 3000);
     });
   }, []);
@@ -168,17 +195,33 @@ const Scene = ({ history, setLoading, setMusicNum, toggleMusicEffect }) => {
   };
 
   const goTo = () => {
-    setLoading("Forwaaaaard!");
-    toggleMusicEffect(false)
+    setGlobalLoading("Forwaaaaard!");
     history.push("/");
 
     setTimeout(() => {
-      setLoading("");
+      setGlobalLoading("");
     }, 3000);
+  };
+
+  const playError = () => {
+    sceneMusicRef.once("unlock", () => {
+      sceneMusicRef.play();
+    });
   };
   return (
     <Hotkeys keyName="enter, space" onKeyDown={updateSceneState}>
       {isLoading && <Loader message="Loading Scene..." forward={true} />}
+      <ReactHowler
+        preload={true}
+        src={sceneMusic}
+        playing={!isLoading}
+        loop={true}
+        html5={true}
+        onLoad={() => setMusicLoading(false)}
+        onLoadError={playError}
+        onPlayError={playError}
+        ref={sceneMusicRef}
+      />
       <SceneEnding goTo={goTo} isModalOpen={isModalOpen} />
       <div className="SCENES">
         {/* For LG images */}
@@ -196,6 +239,7 @@ const Scene = ({ history, setLoading, setMusicNum, toggleMusicEffect }) => {
         <img
           alt="SCENE 1 Small"
           className="SCENE SCENE-1 SCENE-SM"
+          src={SCENE1R}
           ref={SceneOneSm}
         />
         <img
@@ -251,10 +295,9 @@ const Scene = ({ history, setLoading, setMusicNum, toggleMusicEffect }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  setLoading: (val) => dispatch(setLoading(val)),
+  setGlobalLoading: (val) => dispatch(setLoading(val)),
   setMusicNum: (val) => dispatch(setMusicNum(val)),
-  toggleMusicEffect: (val) => dispatch(toggleMusicEffect(val))
+  toggleMusicEffect: (val) => dispatch(toggleMusicEffect(val)),
 });
-
 
 export default connect(null, mapDispatchToProps)(Scene);

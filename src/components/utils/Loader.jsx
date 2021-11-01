@@ -19,7 +19,7 @@ const Loader = ({ message, forward, image = true }) => {
       alignItems={"center"}
       zIndex={9999}
     >
-      <img preload src={pac} alt="loader" style={{ transform: !forward && "scaleX(-1)", visibility: image ? 'visible' : 'hidden' }} />
+      <img preload="true" src={pac} alt="loader" style={{ transform: !forward && "scaleX(-1)", visibility: image ? 'visible' : 'hidden' }} />
       {/* {type ? (
         <img
           src={erwin}

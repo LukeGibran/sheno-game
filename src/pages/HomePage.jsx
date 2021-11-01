@@ -2,6 +2,11 @@ import React, { useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
+import ReactHowler from "react-howler";
+
+// Music
+import inGameMusic from '../assets/music/in-game.mp3'
+
 // Redux Selector
 import {
   getCurrentLife,
@@ -18,8 +23,8 @@ import {
 import {
   setLoading,
   resetUserState,
-  toggleMusicEffect,
-  setMusicNum,
+  toggleSoundEffect,
+  setSoundNum,
 } from "../redux/user/user.actions";
 
 import { Box } from "@chakra-ui/react";
@@ -35,7 +40,6 @@ import Backgrounds from "../components/Backgrounds";
 
 // Utils
 import Loader from "../components/utils/Loader";
-import MusicLoader from "../components/utils/MusicLoader";
 
 const HomePage = ({
   currentLife,
@@ -47,22 +51,23 @@ const HomePage = ({
   resetUserState,
   maxLevel,
   currentQuestion,
-  toggleMusicEffect,
-  setMusicNum,
+  toggleSoundEffect,
+  setSoundNum
 }) => {
   // States
   const [isGameOver, setIsGameOver] = useState(false);
   const [page, setPage] = useState(1);
   const [hasGameEnded, setHasGameEnded] = useState(false);
+  const [isPageLoading, setIsPageLoading] = useState(true)
+  const [isMusicLoading, setIsMusicLoading] = useState(true)
+
+  const inGameMusicRef = useRef()
 
   useEffect(() => {
-    if(!isLoading) {
-      setMusicNum(1);
-      toggleMusicEffect(true);
-    } else {
-      toggleMusicEffect(false)
+    if (!isMusicLoading && !isPageLoading) {
+      setLoading("");
     }
-  }, [isLoading]);
+  }, [isPageLoading, isMusicLoading]);
 
   useEffect(() => {
     if (currentLife === 0) {
@@ -73,7 +78,11 @@ const HomePage = ({
   }, [currentLife]);
 
   useEffect(() => {
-    if (currentQuestion > maxLevel) setHasGameEnded(true);
+    if (currentQuestion > maxLevel) {
+      setSoundNum(4)
+      toggleSoundEffect(true)
+      setHasGameEnded(true)
+    }
   }, [currentQuestion]);
 
   const restartGame = () => {
@@ -90,14 +99,32 @@ const HomePage = ({
 
   const setPageFunc = (val) => {
     setLoading(val > page ? "Forwaaaaard!" : "Going Back..");
+    setIsPageLoading(true)
     setPage(val);
     setTimeout(() => {
       setCurrentPage(val);
-      setLoading("");
+      setIsPageLoading(false)
     }, 2800);
+  };
+
+  const playError = () => {
+    inGameMusicRef.once("unlock", () => {
+      inGameMusicRef.play();
+    });
   };
   return (
     <Box pos="relative">
+      <ReactHowler
+        preload={true}
+        src={inGameMusic}
+        playing={!isLoading}
+        loop={true}
+        html5={true}
+        onLoad={() => setIsMusicLoading(false)}
+        onLoadError={playError}
+        onPlayError={playError}
+        ref={inGameMusicRef}
+      />
       <Backgrounds page={page} />
       {isLoading && (
         <Loader
@@ -133,8 +160,8 @@ const mapDispatchToProps = (dispatch) => ({
   setLoading: (val) => dispatch(setLoading(val)),
   resetUserState: () => dispatch(resetUserState()),
   resetQuestionState: () => dispatch(resetQuestionState()),
-  toggleMusicEffect: (val) => dispatch(toggleMusicEffect(val)),
-  setMusicNum: (val) => dispatch(setMusicNum(val)),
+  toggleSoundEffect: (val) => dispatch(toggleSoundEffect(val)),
+  setSoundNum: (val) => dispatch(setSoundNum(val)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

@@ -27,6 +27,9 @@ class SoundLoader extends React.Component {
   }
 
   componentDidMount() {
+    this.upRef.current.volume = 0.4
+    this.tadaRef.current.volume = 0.6
+    this.wrongRef.current.volume = 0.4
     if (!this.props.num) return;
     this.pause();
 
