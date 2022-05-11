@@ -5,7 +5,7 @@ import questions from "./questions";
 
 const INITIAL_STATE = {
   page: 1,
-  perPage: 5,
+  perPage: 7,
   currentQuestionOpen: 1,
   isQuestionModalOpen: false,
   isRationaleModalOpen: false,

@@ -178,7 +178,7 @@ const Play = ({
               <Text d={{ base: "none", lg: "block" }} color={"white"} mr={1}>
                 Level Completed
               </Text>
-              <Text color={"white"}> {currentQuestion - 1}/20</Text>
+              <Text color={"white"}> {currentQuestion - 1}/25</Text>
             </Box>
           </Stack>
           <Stack
@@ -188,7 +188,6 @@ const Play = ({
             h={20}
             w={"full"}
             justify="center"
-            pos={"relative"}
           >
             {currentStreak >= 3 && (
               <Box
